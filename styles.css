@@ -1,0 +1,12 @@
+
+.state[data-candidate="trump"] path {
+   fill: red !important;
+}
+
+.state[data-candidate="biden"] path {
+   fill: blue !important;
+}
+
+.state[data-candidate=""] path {
+   fill: indigo !important;
+}
