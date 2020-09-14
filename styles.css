@@ -1,12 +1,42 @@
+:root {
+   --blue: #145b9c;
+   --red: #cc2c11;
+   --purple: #351431;
+   --white: #F7F7F9;
+}
 
+body {
+   color: var(--purple);
+   font-family: 'Lato', sans-serif;
+}
+
+.instructions {
+   font-weight: 700;
+}
+
+.current-state {
+   font-style: italic;
+}
+
+.map-totals {
+   width: 100%;
+   display: grid;
+   grid-template-columns: 3fr 1fr;
+}
+
+.map svg {
+   width: 100%;
+}
+
+/* Handle states colors */
 .state[data-candidate="trump"] path {
-   fill: red !important;
+   fill: var(--red) !important;
 }
 
 .state[data-candidate="biden"] path {
-   fill: blue !important;
+   fill: var(--blue) !important;
 }
 
 .state[data-candidate=""] path {
-   fill: indigo !important;
+   fill: var(--purple) !important;
 }
