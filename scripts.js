@@ -2,12 +2,18 @@ const states = document.querySelectorAll('.state');
 const current = document.querySelector('.current-state');
 const trump = document.querySelector('.trump .votes');
 const biden = document.querySelector('.biden .votes');
+const bidenPercentage = document.querySelector('.bar-biden');
+const trumpPercentage = document.querySelector('.bar-trump');
 let trumpVotes = [];
 let bidenVotes = [];
 
-// Change votes to Trump or to Biden
-// Add votes to their respective arrays
-// Remove votes from their respective arrays
+/* 
+Change votes to Trump or to Biden. 
+First double-click goes to Trump, second changes to Biden, third goes back to neutral.
+Add votes to their respective arrays.
+Remove votes from their respective arrays.
+Update vote totals at the end.
+*/
 function claimState(e) {
    // console.log(this.dataset.electorate);
    e.preventDefault();
@@ -55,7 +61,7 @@ function removeVotes(state, arrayToChange) {
    arrayToChange.splice(stateIndex, 1);
 }
 
-/* Update Candidate Votes */
+/* Update Candidate Votes upon each state double-click */
 function updateVoteTotals() {
    let trumpTotal = 0;
    for(let t = 0; t < trumpVotes.length; t++) {
@@ -63,6 +69,7 @@ function updateVoteTotals() {
    }
    //console.log('Trump total: ' + trumpTotal);
    trump.textContent = `${trumpTotal} Votes`;
+   trumpPercentage.style.width = `${trumpTotal / 270 * 100}%`;
 
    let bidenTotal = 0;
    for(let b = 0; b < bidenVotes.length; b++) {
@@ -70,9 +77,11 @@ function updateVoteTotals() {
    }
    //console.log('Biden total: ' + bidenTotal);
    biden.textContent = `${bidenTotal} Votes`;
+   bidenPercentage.style.width = `${bidenTotal / 270 * 100}%`;
+   //console.log(bidenTotal / 270 * 100);
 }
 
-/* check electoral vote total */
+/* check electoral vote total to make sure states are accurate (run once) */
 function checkElectoral() {
    let total = 0;
    for(let i = 0; i < states.length; i++) {
@@ -81,6 +90,7 @@ function checkElectoral() {
    console.log(total);
 }
 
+/* Show the current state and electoral count on single click */
 function handleStateInfo(e) {
    e.preventDefault();
    const stateName = this.dataset.state;

@@ -18,6 +18,61 @@ body {
    font-style: italic;
 }
 
+
+.hurdle {
+   width: 100%;
+   height: 20px;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+}
+
+.hurdle-biden {
+   border: 2px solid var(--blue);
+   position: relative;
+}
+
+.bar-biden {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   background-color: var(--blue);
+}
+
+.hurdle-trump {
+   border: 2px solid var(--red);
+   position: relative;
+}
+
+.bar-trump {
+   position: absolute;
+   top: 0;
+   right: 0;
+   height: 100%;
+   background-color: var(--red);
+}
+
+.flag {
+   text-align: center;
+   font-weight: 700;
+}
+
+h1 {
+   text-align: center;
+}
+
+/* Candidate Info */
+
+.candidates > div {
+   display: flex;
+   align-items: center;
+}
+
+.candidates div > * {
+   width: 50%;
+   flex: 0 0 auto;
+}
+
 .map-totals {
    width: 100%;
    display: grid;
