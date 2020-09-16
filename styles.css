@@ -8,10 +8,33 @@
 body {
    color: var(--purple);
    font-family: 'Lato', sans-serif;
+   margin: 16px;
 }
 
 .instructions {
    font-weight: 700;
+   position: fixed;
+   right: 16px;
+   top: 16px;
+   background-color: #fff;
+   padding: 16px;
+   border: 4px solid var(--purple);
+}
+
+.instructions button {
+   position: absolute;
+   top: 16px;
+   right: 16px;
+}
+
+.instructions.closed {
+   padding: 3px;
+}
+
+.instructions.closed p,
+.instructions.closed button,
+.instructions.closed h2 {
+   display: none;
 }
 
 .current-state {
@@ -63,12 +86,12 @@ h1 {
 
 /* Candidate Info */
 
-.candidates > div {
+.table-wrapper > .candidate {
    display: flex;
    align-items: center;
 }
 
-.candidates div > * {
+.table-wrapper > .candidate > * {
    width: 50%;
    flex: 0 0 auto;
 }
@@ -77,6 +100,11 @@ h1 {
    width: 100%;
    display: grid;
    grid-template-columns: 3fr 1fr;
+}
+
+.table-row {
+   display: flex;
+   justify-content: space-between;
 }
 
 .map svg {
@@ -94,4 +122,8 @@ h1 {
 
 .state[data-candidate=""] path {
    fill: var(--purple) !important;
+}
+
+footer {
+   text-align: center;
 }

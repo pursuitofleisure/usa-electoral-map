@@ -8,7 +8,6 @@
    <meta name="description" content="">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="node_modules/modern-normalize/modern-normalize.css">
    <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -24,12 +23,15 @@
          </div>
       </div>
       <div class="flag">🏆<br />270 to Win</div>
-   </div>
-   <div class="instructions">
-      <p>Click each state to view electoral votes.</p>
-      <p>Double-click each state to assign to candidates.</p>
-   </div>
-   <div class="current-state">View State Info Here</div>
+   </div> <!-- end hurdle wrapper -->
+   <div class="instructions open">
+      <button class="open-instructions">i</button>
+      <button class="close-instructions">Close</button>
+      <h2>Instructions</h2>
+      <p>Click each state to view information.</p>
+      <p>Double-click each state to cycle between candidates.</p>
+   </div> <!-- end instructions -->
+   <div class="current-state">Click on a State</div>
    <div class="map-totals">
       <div class="map">
          <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -425,18 +427,24 @@
 
       </div>
       <div class="candidates">
-         <div class="trump">
-            <h2>Trump</h2>
-            <div class="votes">0 Votes</div>
-            <div class="table-trump"></div>
-         </div>
-         <div class="biden">
-            <h2>Biden</h2>
-            <div class="votes">0 Votes</div>
-            <div class="table-trump"></div>
-         </div>
-      </div>
-   </div>
+         <div class="table-wrapper">
+            <div class="trump candidate">
+               <h2>Trump</h2>
+               <div class="votes">0 Votes</div>
+            </div>
+            <div class="table table-trump"></div>
+         </div> <!-- end table wrapper -->
+         <div class="table-wrapper">
+            <div class="biden candidate">
+               <h2>Biden</h2>
+               <div class="votes">0 Votes</div>
+            </div>
+            <div class="table table-biden"></div>
+         </div> <!-- end table wrapper -->
+      </div> <!-- end candidates -->
+   </div> <!-- end map totals -->
+   <footer>Made in the USA by <a href="https://github.com/pursuitofleisure" target="_blank">Pursuit of Leisure</a>
+   </footer>
    <script src="scripts.js" async defer></script>
 </body>
 

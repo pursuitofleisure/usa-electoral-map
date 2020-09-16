@@ -4,8 +4,13 @@ const trump = document.querySelector('.trump .votes');
 const biden = document.querySelector('.biden .votes');
 const bidenPercentage = document.querySelector('.bar-biden');
 const trumpPercentage = document.querySelector('.bar-trump');
+const trumpTable = document.querySelector('.table-trump');
+const bidenTable = document.querySelector('.table-biden');
 let trumpVotes = [];
 let bidenVotes = [];
+
+const closeButton = document.querySelector('.close-instructions');
+const instructions = document.querySelector('.instructions');
 
 /* 
 Change votes to Trump or to Biden. 
@@ -64,20 +69,26 @@ function removeVotes(state, arrayToChange) {
 /* Update Candidate Votes upon each state double-click */
 function updateVoteTotals() {
    let trumpTotal = 0;
+   let trumpAllStates = '';
    for(let t = 0; t < trumpVotes.length; t++) {
       trumpTotal += trumpVotes[t].votes;
+      trumpAllStates += `<div class="table-row"><div>${trumpVotes[t].state}</div><div>${trumpVotes[t].votes}</div></div>`;
    }
-   //console.log('Trump total: ' + trumpTotal);
+
    trump.textContent = `${trumpTotal} Votes`;
    trumpPercentage.style.width = `${trumpTotal / 270 * 100}%`;
-
+   trumpTable.innerHTML = trumpAllStates;
+ 
    let bidenTotal = 0;
+   let bidenAllStates = '';
    for(let b = 0; b < bidenVotes.length; b++) {
       bidenTotal += bidenVotes[b].votes;
+      bidenAllStates += `<div class="table-row"><div>${bidenVotes[b].state}</div><div>${bidenVotes[b].votes}</div></div>`;
    }
-   //console.log('Biden total: ' + bidenTotal);
+
    biden.textContent = `${bidenTotal} Votes`;
    bidenPercentage.style.width = `${bidenTotal / 270 * 100}%`;
+   bidenTable.innerHTML = bidenAllStates;
    //console.log(bidenTotal / 270 * 100);
 }
 
@@ -98,8 +109,17 @@ function handleStateInfo(e) {
    current.textContent = `${stateName}: ${stateElectorates} votes`;
 }
 
+/* Close Instructions */
+
+function handleClosebutton() {
+   instructions.classList.add('closed');
+   instructions.classList.remove('open');
+}
+
 // Listen for state clicks to change colors and votes
 for (let i = 0; i < states.length; i++) {
    states[i].addEventListener('dblclick', claimState);
    states[i].addEventListener('click', handleStateInfo);
 }
+
+closeButton.addEventListener('click', handleClosebutton);
