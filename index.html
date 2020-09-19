@@ -8,6 +8,7 @@
    <meta name="description" content="">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="normalize.css">
    <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -24,13 +25,16 @@
       </div>
       <div class="flag">🏆<br />270 to Win</div>
    </div> <!-- end hurdle wrapper -->
+   <!-- 
    <div class="instructions open">
       <button class="open-instructions">i</button>
       <button class="close-instructions">Close</button>
       <h2>Instructions</h2>
       <p>Click each state to view information.</p>
       <p>Double-click each state to cycle between candidates.</p>
-   </div> <!-- end instructions -->
+   </div>
+-->
+   <!-- end instructions -->
    <div class="current-state">Click on a State</div>
    <div class="map-totals">
       <div class="map">
@@ -427,19 +431,19 @@
 
       </div>
       <div class="candidates">
-         <div class="table-wrapper">
+         <div class="table-wrapper table-wrapper-trump">
             <div class="trump candidate">
-               <h2>Trump</h2>
-               <div class="votes">0 Votes</div>
+               <h2 class="elect"><button class="show-table-btn" aria-expanded="true"></button>Trump</h2>
+               <h2 class="votes">0</h2>
             </div>
-            <div class="table table-trump"></div>
+            <div class="table table-trump" aria-expanded="true"></div>
          </div> <!-- end table wrapper -->
-         <div class="table-wrapper">
+         <div class="table-wrapper table-wrapper-biden">
             <div class="biden candidate">
-               <h2>Biden</h2>
-               <div class="votes">0 Votes</div>
+               <h2 class="elect"><button class="show-table-btn" aria-expanded="true"></button>Biden</h2>
+               <h2 class="votes">0</h2>
             </div>
-            <div class="table table-biden"></div>
+            <div class="table table-biden" aria-expanded="true"></div>
          </div> <!-- end table wrapper -->
       </div> <!-- end candidates -->
    </div> <!-- end map totals -->

@@ -11,6 +11,9 @@ body {
    margin: 16px;
 }
 
+
+/* Instructions */
+
 .instructions {
    font-weight: 700;
    position: fixed;
@@ -41,6 +44,7 @@ body {
    font-style: italic;
 }
 
+/* Progress Bar */
 
 .hurdle {
    width: 100%;
@@ -84,16 +88,54 @@ h1 {
    text-align: center;
 }
 
+h2 {
+   margin: 0;
+}
+
 /* Candidate Info */
 
-.table-wrapper > .candidate {
+.table-wrapper {
+   padding: 1em;
+   border-radius: 3px;
+}
+
+.table-wrapper + .table-wrapper {
+   margin-top: 1em;
+}
+
+.table-wrapper .candidate {
    display: flex;
    align-items: center;
 }
 
-.table-wrapper > .candidate > * {
+.table-wrapper .candidate h2 {
    width: 50%;
    flex: 0 0 auto;
+}
+
+.table-wrapper .candidate h2:last-child {
+   text-align: right;
+}
+
+.table-wrapper-trump {
+   border: 3px solid var(--red);
+}
+
+.table-wrapper-biden {
+   border: 3px solid var(--blue);
+}
+
+.table {
+   margin-top: 8px;
+   overflow: hidden;
+}
+
+.table[aria-expanded="true"] {
+   height: auto;
+}
+
+.table[aria-expanded="false"] {
+   height: 0;
 }
 
 .map-totals {
@@ -107,11 +149,38 @@ h1 {
    justify-content: space-between;
 }
 
+.elect {
+   display: flex;
+   align-items: center;
+}
+
+.show-table-btn {
+   position: relative;
+   width: 32px;
+   height: 32px;
+   margin-right: 8px;
+   background: none;
+   border: 2px solid var(--purple);
+   border-radius: 50%;
+}
+
+.show-table-btn::after {
+   content: "\002B";
+   position: absolute;
+   top: 0;
+   left: 7px;
+}
+
+.show-table-btn[aria-expanded="true"]::after {
+   content: "\2212";
+}
+
+/* Map and state colors */
+
 .map svg {
    width: 100%;
 }
 
-/* Handle states colors */
 .state[data-candidate="trump"] path {
    fill: var(--red) !important;
 }

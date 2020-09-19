@@ -6,10 +6,12 @@ const bidenPercentage = document.querySelector('.bar-biden');
 const trumpPercentage = document.querySelector('.bar-trump');
 const trumpTable = document.querySelector('.table-trump');
 const bidenTable = document.querySelector('.table-biden');
+const trumpTableButton = document.querySelector('.trump .show-table-btn');
+const bidenTableButton = document.querySelector('.biden .show-table-btn');
 let trumpVotes = [];
 let bidenVotes = [];
 
-const closeButton = document.querySelector('.close-instructions');
+//const closeButton = document.querySelector('.close-instructions');
 const instructions = document.querySelector('.instructions');
 
 /* 
@@ -116,10 +118,21 @@ function handleClosebutton() {
    instructions.classList.remove('open');
 }
 
+/* Collapse tables showing states */
+function handleTrumpTable() {
+   if (trumpTable.getAttribute('aria-expanded') === 'true') {
+      trumpTable.setAttribute('aria-expanded', 'false');
+   } else {
+      trumpTable.setAttribute('aria-expanded', 'true');
+   }
+}
+
+trumpTableButton.addEventListener('click', handleTrumpTable);
+
 // Listen for state clicks to change colors and votes
 for (let i = 0; i < states.length; i++) {
    states[i].addEventListener('dblclick', claimState);
    states[i].addEventListener('click', handleStateInfo);
 }
 
-closeButton.addEventListener('click', handleClosebutton);
+//closeButton.addEventListener('click', handleClosebutton);
