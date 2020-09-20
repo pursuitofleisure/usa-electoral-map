@@ -24,37 +24,61 @@ Update vote totals at the end.
 function claimState(e) {
    // console.log(this.dataset.electorate);
    e.preventDefault();
-   switch (this.dataset.candidate) {
+   switch (e.currentTarget.dataset.candidate) {
       case '' :
-         this.dataset.candidate = 'trump';
-         //this.querySelector('path').style.fill = 'red';
+         e.currentTarget.dataset.candidate = 'trump';
          let trumpArray = {
-            state: this.dataset.state,
-            votes: Number.parseInt(this.dataset.electorate)
+            state: e.currentTarget.dataset.state,
+            votes: Number.parseInt(e.currentTarget.dataset.electorate)
          };
+         // Add to object array
          trumpVotes.push(trumpArray);
-         //console.log(trumpVotes);
          break;
       case 'trump' :
-         this.dataset.candidate = 'biden';
-         //this.querySelector('path').style.fill = 'blue';
+         e.currentTarget.dataset.candidate = 'biden';
          let bidenArray = {
-            state: this.dataset.state,
-            votes: Number.parseInt(this.dataset.electorate)
+            state: e.currentTarget.dataset.state,
+            votes: Number.parseInt(e.currentTarget.dataset.electorate)
          };
+         // Add to object array
          bidenVotes.push(bidenArray);
-         removeVotes(this.dataset.state, trumpVotes);
-         // console.log(trumpVotes);
+         // remove from Trump
+         removeVotes(e.currentTarget.dataset.state, trumpVotes);
          break;
       case 'biden' :
-         this.dataset.candidate = '';
-         //this.querySelector('path').style.fill = 'mistyrose';
-         removeVotes(this.dataset.state, bidenVotes);
+         e.currentTarget.dataset.candidate = '';
+         // remove from Biden
+         removeVotes(e.currentTarget.dataset.state, bidenVotes);
          break;
       default:
-         this.dataset.candidate = '';
+         e.currentTarget.dataset.candidate = '';
          break;
    }
+   // Sort vote objects
+   trumpVotes.sort(function(a, b) {
+      let stateA = a.state.toLowerCase();
+      let stateB = b.state.toLowerCase();
+      if (stateA < stateB) {
+         return -1;
+      }
+      if (stateA > stateB) {
+         return 1;
+      }
+      return 0;
+   });
+
+   bidenVotes.sort(function(a, b) {
+      let stateA = a.state.toLowerCase();
+      let stateB = b.state.toLowerCase();
+      if (stateA < stateB) {
+         return -1;
+      }
+      if (stateA > stateB) {
+         return 1;
+      }
+      return 0;
+   });
+
    updateVoteTotals();
 
 }
@@ -63,7 +87,6 @@ function claimState(e) {
 function removeVotes(state, arrayToChange) {
    // first find the index of the item in the array
    const stateIndex = arrayToChange.findIndex(usa => usa.state === state);
-   //console.log(stateIndex);
    // Modify the original array
    arrayToChange.splice(stateIndex, 1);
 }
@@ -91,7 +114,6 @@ function updateVoteTotals() {
    biden.textContent = `${bidenTotal} Votes`;
    bidenPercentage.style.width = `${bidenTotal / 270 * 100}%`;
    bidenTable.innerHTML = bidenAllStates;
-   //console.log(bidenTotal / 270 * 100);
 }
 
 /* check electoral vote total to make sure states are accurate (run once) */
@@ -106,28 +128,41 @@ function checkElectoral() {
 /* Show the current state and electoral count on single click */
 function handleStateInfo(e) {
    e.preventDefault();
-   const stateName = this.dataset.state;
-   const stateElectorates = this.dataset.electorate;
+   const stateName = e.currentTarget.dataset.state;
+   const stateElectorates = e.currentTarget.dataset.electorate;
    current.textContent = `${stateName}: ${stateElectorates} votes`;
 }
 
 /* Close Instructions */
-
 function handleClosebutton() {
    instructions.classList.add('closed');
    instructions.classList.remove('open');
 }
 
 /* Collapse tables showing states */
-function handleTrumpTable() {
+function handleTrumpTable(e) {
    if (trumpTable.getAttribute('aria-expanded') === 'true') {
       trumpTable.setAttribute('aria-expanded', 'false');
+      e.currentTarget.setAttribute('aria-expanded', 'false');
    } else {
       trumpTable.setAttribute('aria-expanded', 'true');
+      e.currentTarget.setAttribute('aria-expanded', 'true');
    }
 }
 
+function handleBidenTable(e) {
+   if (bidenTable.getAttribute('aria-expanded') === 'true') {
+      bidenTable.setAttribute('aria-expanded', 'false');
+      e.currentTarget.setAttribute('aria-expanded', 'false');
+   } else {
+      bidenTable.setAttribute('aria-expanded', 'true');
+      e.currentTarget.setAttribute('aria-expanded', 'true');
+   }
+}
+
+// Listen for button clicks to collapse / expand states table
 trumpTableButton.addEventListener('click', handleTrumpTable);
+bidenTableButton.addEventListener('click', handleBidenTable);
 
 // Listen for state clicks to change colors and votes
 for (let i = 0; i < states.length; i++) {

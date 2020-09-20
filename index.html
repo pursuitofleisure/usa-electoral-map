@@ -433,19 +433,36 @@
       <div class="candidates">
          <div class="table-wrapper table-wrapper-trump">
             <div class="trump candidate">
-               <h2 class="elect"><button class="show-table-btn" aria-expanded="true"></button>Trump</h2>
+               <button class="show-table-btn" aria-expanded="true"></button>
+               <h2 class="elect">Trump</h2>
                <h2 class="votes">0</h2>
             </div>
             <div class="table table-trump" aria-expanded="true"></div>
          </div> <!-- end table wrapper -->
          <div class="table-wrapper table-wrapper-biden">
             <div class="biden candidate">
-               <h2 class="elect"><button class="show-table-btn" aria-expanded="true"></button>Biden</h2>
+               <button class="show-table-btn" aria-expanded="true"></button>
+               <h2 class="elect">Biden</h2>
                <h2 class="votes">0</h2>
             </div>
             <div class="table table-biden" aria-expanded="true"></div>
          </div> <!-- end table wrapper -->
+         <div class="exceptions">
+            <div class="maine">
+               <h3>Maine</h3>
+               <input type="number" name="maine-trump" min="0" max="4">
+               <input type="number" name="maine-biden" min="0" max="4">
+               <button id="submit-maine">Submit</button>
+            </div>
+            <div class="nebraska">
+               <h3>Nebraska</h3>
+               <input type="number" name="nebraska-trump" min="0" max="5">
+               <input type="number" name="nebraska-biden" min="0" max="5">
+               <button id="submit-nebraska">Submit</button>
+            </div>
+         </div>
       </div> <!-- end candidates -->
+
    </div> <!-- end map totals -->
    <footer>Made in the USA by <a href="https://github.com/pursuitofleisure" target="_blank">Pursuit of Leisure</a>
    </footer>

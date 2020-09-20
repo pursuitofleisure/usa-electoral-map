@@ -108,13 +108,50 @@ h2 {
    align-items: center;
 }
 
-.table-wrapper .candidate h2 {
+.table-wrapper .votes {
    width: 50%;
    flex: 0 0 auto;
 }
 
+.table-wrapper .elect {
+   width: calc(50% - 32px);
+}
+
 .table-wrapper .candidate h2:last-child {
    text-align: right;
+}
+
+.elect {
+   display: flex;
+   align-items: center;
+}
+
+.show-table-btn {
+   position: relative;
+   width: 32px;
+   height: 32px;
+   margin-right: 8px;
+   background: none;
+   border: 2px solid var(--purple);
+   border-radius: 50%;
+}
+
+.show-table-btn:hover,
+.show-table-btn:focus {
+   background: var(--purple);
+   color: #fff;
+   cursor: pointer;
+}
+
+.show-table-btn::after {
+   content: "\002B";
+   position: absolute;
+   top: 4px;
+   left: 9px;
+}
+
+.show-table-btn[aria-expanded="true"]::after {
+   content: "\2212";
 }
 
 .table-wrapper-trump {
@@ -126,11 +163,11 @@ h2 {
 }
 
 .table {
-   margin-top: 8px;
    overflow: hidden;
 }
 
 .table[aria-expanded="true"] {
+   margin-top: 8px;
    height: auto;
 }
 
@@ -149,31 +186,6 @@ h2 {
    justify-content: space-between;
 }
 
-.elect {
-   display: flex;
-   align-items: center;
-}
-
-.show-table-btn {
-   position: relative;
-   width: 32px;
-   height: 32px;
-   margin-right: 8px;
-   background: none;
-   border: 2px solid var(--purple);
-   border-radius: 50%;
-}
-
-.show-table-btn::after {
-   content: "\002B";
-   position: absolute;
-   top: 0;
-   left: 7px;
-}
-
-.show-table-btn[aria-expanded="true"]::after {
-   content: "\2212";
-}
 
 /* Map and state colors */
 
