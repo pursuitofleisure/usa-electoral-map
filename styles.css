@@ -2,6 +2,9 @@
    --blue: #145b9c;
    --red: #cc2c11;
    --purple: #351431;
+   --yellow: #EEB902;
+   --exception: #592252;
+   --pink: #D67AB1;
    --white: #F7F7F9;
 }
 
@@ -42,6 +45,18 @@ body {
 
 .current-state {
    font-style: italic;
+}
+
+.maine,
+.nebraska {
+   border: 3px solid var(--purple);
+   border-radius: 3px;
+   padding: 1em;
+   margin: 1em 0;
+}
+
+h3 {
+   margin-top: 0;
 }
 
 /* Progress Bar */
@@ -203,6 +218,37 @@ h2 {
 
 .state[data-candidate=""] path {
    fill: var(--purple) !important;
+}
+
+.state[data-state="Nebraska"] path,
+.state[data-state="Maine"] path {
+   fill: var(--exception) !important;
+}
+
+.input-group {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   margin-bottom: 8px;
+}
+
+button.update {
+   background-color: var(--purple);
+   border: 0;
+   color: #fff;
+   padding: 8px 16px;
+   display: block;
+   width: 100%;
+}
+
+button.update:hover,
+button.update:focus {
+   background-color: var(--exception);
+}
+
+.error {
+   color: var(--pink);
+   font-weight: 700;
+   margin-bottom: 8px;
 }
 
 footer {

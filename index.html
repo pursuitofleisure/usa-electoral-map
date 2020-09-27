@@ -31,11 +31,11 @@
       <button class="close-instructions">Close</button>
       <h2>Instructions</h2>
       <p>Click each state to view information.</p>
-      <p>Double-click each state to cycle between candidates.</p>
+      <p>Double-click each state to cycle between red, blue and unassigned.</p>
+      <p>Maine and Nebraska do not automatically assign all their delegates to one candidate. Input the values for each.</p>
    </div>
 -->
    <!-- end instructions -->
-   <div class="current-state">Click on a State</div>
    <div class="map-totals">
       <div class="map">
          <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -114,7 +114,7 @@
                   d="M 844.48416,154.05791 L 844.80086,148.71228 L 841.91015,137.92811 L 841.26351,137.60479 L 838.35361,136.3115 L 839.16191,133.40161 L 838.35361,131.30002 L 835.65356,126.66004 L 836.62353,122.78018 L 835.81522,117.60703 L 833.39031,111.14059 L 832.58474,106.21808 L 859.0041,99.48626 L 859.3128,105.00847 L 861.22906,107.7507 L 861.22906,111.79222 L 857.52191,116.85021 L 854.93534,117.99288 L 854.92429,119.11345 L 856.23426,120.63257 L 855.92333,128.73054 L 855.3139,137.9894 L 855.08595,143.54634 L 856.05591,144.83963 L 855.89425,149.41032 L 855.40927,151.10021 L 856.42345,151.82737 L 848.9859,153.33408 L 844.48416,154.05791 z"
                   sodipodi:nodetypes="ccccccccccccccccccccccccccccc" />
             </a>
-            <a href="#" class="state" data-electorate="4" data-state="Maine" data-candidate="">
+            <a href="#" class="state" data-electorate="4" data-state="Maine" data-candidate="exception">
                <path
                   style="fill:#d3d3d3;fill-opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-width:0.75;stroke-miterlimit:4;stroke-dasharray:none"
                   id="ME"
@@ -336,7 +336,7 @@
                   d="M 507.88059,324.38028 L 495.26233,324.58471 L 449.17324,324.12748 L 404.61576,322.06985 L 379.98602,320.81244 L 383.87981,256.21747 L 405.96327,256.89264 L 446.2524,257.73404 L 490.55364,258.72162 L 495.64927,258.72162 L 497.83367,260.88402 L 499.85133,260.86264 L 501.49163,261.87511 L 501.42913,264.88434 L 499.60015,266.60971 L 499.2679,268.84188 L 501.11098,272.24421 L 504.06334,275.43927 L 506.39069,277.05373 L 507.69146,288.29455 L 507.88059,324.38028 z"
                   sodipodi:nodetypes="ccccccccccccccccccccc" />
             </a>
-            <a href="#" class="state" data-electorate="5" data-state="Nebraska" data-candidate="">
+            <a href="#" class="state" data-electorate="5" data-state="Nebraska" data-candidate="exception">
                <path
                   style="fill:#d3d3d3;stroke:#ffffff;stroke-opacity:1;fill-opacity:1;stroke-width:0.75;stroke-miterlimit:4;stroke-dasharray:none"
                   id="NE"
@@ -431,6 +431,35 @@
 
       </div>
       <div class="candidates">
+         <div class="current-state">Click on a State</div>
+         <div class="exceptions">
+            <div class="maine">
+               <h3>Maine</h3>
+               <div class="input-group">
+                  <label for="maine-trump">Trump</label><input type="number" id="maine-trump" name="maine-trump" min="0"
+                     max="4">
+               </div>
+               <div class="input-group">
+                  <label for="maine-biden">Biden</label><input type="number" id="maine-biden" name="maine-biden" min="0"
+                     max="4">
+               </div>
+               <div class="maine-error error"></div>
+               <button id="update-maine" class="update">Update</button>
+            </div>
+            <div class="nebraska">
+               <h3>Nebraska</h3>
+               <div class="input-group">
+                  <label for="nebraska-trump">Trump</label><input type="number" id="nebraska-trump"
+                     name="nebraska-trump" min="0" max="5">
+               </div>
+               <div class="input-group">
+                  <label for="nebraska-biden">Biden</label><input type="number" id="nebraska-biden"
+                     name="nebraska-biden" min="0" max="5">
+               </div>
+               <div class="nebraska-error error"></div>
+               <button id="update-nebraska" class="update">Update</button>
+            </div>
+         </div>
          <div class="table-wrapper table-wrapper-trump">
             <div class="trump candidate">
                <button class="show-table-btn" aria-expanded="true"></button>
@@ -447,20 +476,6 @@
             </div>
             <div class="table table-biden" aria-expanded="true"></div>
          </div> <!-- end table wrapper -->
-         <div class="exceptions">
-            <div class="maine">
-               <h3>Maine</h3>
-               <input type="number" name="maine-trump" min="0" max="4">
-               <input type="number" name="maine-biden" min="0" max="4">
-               <button id="submit-maine">Submit</button>
-            </div>
-            <div class="nebraska">
-               <h3>Nebraska</h3>
-               <input type="number" name="nebraska-trump" min="0" max="5">
-               <input type="number" name="nebraska-biden" min="0" max="5">
-               <button id="submit-nebraska">Submit</button>
-            </div>
-         </div>
       </div> <!-- end candidates -->
 
    </div> <!-- end map totals -->
