@@ -45,14 +45,31 @@ body {
 
 .current-state {
    font-style: italic;
+   margin-bottom: 1em;
 }
+
+/* Maine and Nebraska input boxes */
 
 .maine,
 .nebraska {
+   height: 0;
+   overflow: hidden;
+   transform: height 0.2s ease;
+}
+
+.maine.active,
+.nebraska.active {
    border: 3px solid var(--purple);
    border-radius: 3px;
    padding: 1em;
    margin: 1em 0;
+   height: auto;
+}
+
+.exception-state h3 {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
 
 h3 {
@@ -141,7 +158,8 @@ h2 {
    align-items: center;
 }
 
-.show-table-btn {
+.show-table-btn,
+.close-state-btn {
    position: relative;
    width: 32px;
    height: 32px;
@@ -152,10 +170,17 @@ h2 {
 }
 
 .show-table-btn:hover,
-.show-table-btn:focus {
+.show-table-btn:focus,
+.close-state-btn:hover,
+.close-state-btn:focus {
    background: var(--purple);
    color: #fff;
    cursor: pointer;
+}
+
+
+.close-state-btn {
+   margin-right: 0;
 }
 
 .show-table-btn::after {

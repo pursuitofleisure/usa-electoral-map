@@ -1,14 +1,16 @@
+/* States */
 const states = document.querySelectorAll('.state');
-const maine = document.querySelector('state[data-state="maine"]');
-const nebraska = document.querySelector('state[data-state="nebraska"]');
-const maineTotal = 4;
-const nebraskaTotal = 5;
+const maineState = document.querySelector('.state[data-state="Maine"]');
+const nebraskaState = document.querySelector('.state[data-state="Nebraska"]');
 const maineError = document.querySelector('.maine-error');
 const nebraskaError = document.querySelector('.nebraska-error');
 const updateMaine = document.querySelector('#update-maine');
 const updateNebraska = document.querySelector('#update-nebraska');
 const exceptionInputs = document.querySelectorAll('input[type="number"]');
 const current = document.querySelector('.current-state');
+const closeExceptions = document.querySelectorAll('.close-state-btn');
+
+/* Candidate votes and progress */
 const trump = document.querySelector('.trump .votes');
 const biden = document.querySelector('.biden .votes');
 const bidenPercentage = document.querySelector('.bar-biden');
@@ -17,8 +19,12 @@ const trumpTable = document.querySelector('.table-trump');
 const bidenTable = document.querySelector('.table-biden');
 const trumpTableButton = document.querySelector('.trump .show-table-btn');
 const bidenTableButton = document.querySelector('.biden .show-table-btn');
+
 let trumpVotes = [];
 let bidenVotes = [];
+
+const maineTotal = 4;
+const nebraskaTotal = 5;
 
 //const closeButton = document.querySelector('.close-instructions');
 const instructions = document.querySelector('.instructions');
@@ -237,7 +243,7 @@ function handleClosebutton() {
    instructions.classList.remove('open');
 }
 
-/* Collapse tables showing states */
+/* Collapse tables showing states for Trump */
 function handleTrumpTable(e) {
    if (trumpTable.getAttribute('aria-expanded') === 'true') {
       trumpTable.setAttribute('aria-expanded', 'false');
@@ -248,6 +254,7 @@ function handleTrumpTable(e) {
    }
 }
 
+/* Collapse tables showing states for Biden */
 function handleBidenTable(e) {
    if (bidenTable.getAttribute('aria-expanded') === 'true') {
       bidenTable.setAttribute('aria-expanded', 'false');
@@ -257,6 +264,25 @@ function handleBidenTable(e) {
       e.currentTarget.setAttribute('aria-expanded', 'true');
    }
 }
+
+// Check if Maine or Nebraska is clicked to open the forms
+maineState.addEventListener('click', function() {
+   const maine = document.querySelector('.maine');
+   maine.classList.add('active');
+});
+
+nebraskaState.addEventListener('click', function() {
+   const nebraska = document.querySelector('.nebraska');
+   nebraska.classList.add('active');
+});
+
+// Listen for close button on Maine / Nebraska
+closeExceptions.forEach(exception => {
+   exception.addEventListener('click', function(e) {
+      const closestState = e.currentTarget.closest('.exception-state');
+      closestState.classList.remove('active');
+   });
+});
 
 // Listen for updates to Maine / Nebraska states
 updateMaine.addEventListener('click', handleMaineTotals);
