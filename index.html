@@ -13,6 +13,7 @@
 </head>
 
 <body>
+   <div class="instructions-overlay open"></div>
    <h1>🇺🇸 USA Presidential Election 2020 - Make It End, Please!</h1>
    <div class="hurdle-wrapper">
       <div class="hurdle">
@@ -25,16 +26,20 @@
       </div>
       <div class="flag">🏆<br />270 to Win</div>
    </div> <!-- end hurdle wrapper -->
-   <!-- 
    <div class="instructions open">
-      <button class="open-instructions">i</button>
-      <button class="close-instructions">Close</button>
-      <h2>Instructions</h2>
-      <p>Click each state to view information.</p>
-      <p>Double-click each state to cycle between red, blue and unassigned.</p>
-      <p>Maine and Nebraska do not automatically assign all their delegates to one candidate. Input the values for each.</p>
+      <button class="open-instructions-btn" aria-label="Open Instructions" title="Instructions">i</button>
+      <button class="close-instructions-btn" aria-label="Close Instructions">x</button>
+      <div class="instructions-text">
+         <h2>Instructions</h2>
+         <p>1) <strong>Hover</strong> over each state to view name and electoral information.</p>
+         <p>2) <strong>Click</strong> each state to cycle through assignments for Trump, Biden and unassigned.</p>
+         <p><em>Maine and Nebraska do not assign all their delegates to one candidate. You will need to input the
+               values.</em></p>
+         <p><em>Washington, D.C. is tiny but it's there.</em></p>
+         <h3>LET'S DO THIS</h3>
+      </div>
    </div>
--->
+
    <!-- end instructions -->
    <div class="map-totals">
       <div class="map">
@@ -434,7 +439,7 @@
          <div class="current-state">Click on a State</div>
          <div class="exceptions">
             <div class="maine exception-state">
-               <h3>Maine <button class="close-state-btn">x</button></h3>
+               <h3>Maine <button class="close-state-btn" aria-label="Close Maine Inputs">x</button></h3>
                <div class="input-group">
                   <label for="maine-trump">Trump</label><input type="number" id="maine-trump" name="maine-trump" min="0"
                      max="4">
@@ -447,7 +452,7 @@
                <button id="update-maine" class="update">Update</button>
             </div> <!-- end Maine -->
             <div class="nebraska exception-state">
-               <h3>Nebraska <button class="close-state-btn">x</button></h3>
+               <h3>Nebraska <button class="close-state-btn" aria-label="Close Nebraska Inputs">x</button></h3>
                <div class="input-group">
                   <label for="nebraska-trump">Trump</label><input type="number" id="nebraska-trump"
                      name="nebraska-trump" min="0" max="5">
@@ -463,7 +468,7 @@
          <div class="tables-wrapper">
             <div class="table-wrapper table-wrapper-trump">
                <div class="trump candidate">
-                  <button class="show-table-btn" aria-expanded="true"></button>
+                  <button class="show-table-btn" aria-expanded="true" aria-label="Show Trump States"></button>
                   <h2 class="elect">Trump</h2>
                   <h2 class="votes">0</h2>
                </div>
@@ -471,7 +476,7 @@
             </div> <!-- end table wrapper Trump -->
             <div class="table-wrapper table-wrapper-biden">
                <div class="biden candidate">
-                  <button class="show-table-btn" aria-expanded="true"></button>
+                  <button class="show-table-btn" aria-expanded="true" aria-label="Show Biden States"></button>
                   <h2 class="elect">Biden</h2>
                   <h2 class="votes">0</h2>
                </div>

@@ -2,9 +2,9 @@
    --blue: #145b9c;
    --red: #cc2c11;
    --purple: #351431;
-   --yellow: #EEB902;
+   --yellow: #DB9D47;
    --exception: #592252;
-   --pink: #D67AB1;
+   --pink: #F0A7A0;
    --white: #F7F7F9;
 }
 
@@ -12,19 +12,83 @@ body {
    color: var(--purple);
    font-family: 'Lato', sans-serif;
    margin: 16px;
+   font-weight: 400;
+}
+
+h1 {
+   text-align: center;
+   font-size: 1.5rem;
+}
+
+h2 {
+   margin: 0;
+   font-size: 1.2rem;
+}
+
+strong {
+   text-transform: uppercase;
+   text-decoration: underline;
+}
+
+@media screen and (min-width: 600px) {
+   h1 {
+      font-size: 1.8rem;
+   }
+   h2 {
+      font-size: 1.5rem;
+   }
+}
+
+@media screen and (min-width: 1200px) {
+   h1 {
+      font-size: 2rem;
+   }
+   h2 {
+      font-size: 1.5rem;
+   }
 }
 
 
 /* Instructions */
 
+.instructions-overlay {
+   display: none;
+   position: fixed;
+   background-color: rgba(0,0,0,0.8);
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   z-index: 1;
+}
+
+.instructions-overlay.open {
+   display: block;
+}
+
 .instructions {
    font-weight: 700;
    position: fixed;
-   right: 16px;
-   top: 16px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
    background-color: #fff;
    padding: 16px;
    border: 4px solid var(--purple);
+   z-index: 100;
+}
+
+.instructions.open {
+   display: block;
+}
+
+.instructions.open .open-instructions-btn {
+   display: none;
+}
+
+.instructions h2,
+.instructions h3 {
+   text-align: center;
 }
 
 .instructions button {
@@ -34,13 +98,23 @@ body {
 }
 
 .instructions.closed {
-   padding: 3px;
+   padding: 0;
+   border: 0;
+   position: absolute;
+   top: 0;
+   right: 0;
+   transform: translate(0);
 }
 
 .instructions.closed p,
 .instructions.closed button,
-.instructions.closed h2 {
+.instructions.closed h2,
+.instructions.closed h3 {
    display: none;
+}
+
+.instructions.closed .open-instructions-btn {
+   display: block;
 }
 
 .current-state {
@@ -116,33 +190,6 @@ h3 {
    font-weight: 700;
 }
 
-h1 {
-   text-align: center;
-   font-size: 1.5rem;
-}
-
-h2 {
-   margin: 0;
-   font-size: 1.2rem;
-}
-
-@media screen and (min-width: 600px) {
-   h1 {
-      font-size: 1.8rem;
-   }
-   h2 {
-      font-size: 1.5rem;
-   }
-}
-
-@media screen and (min-width: 1200px) {
-   h1 {
-      font-size: 2rem;
-   }
-   h2 {
-      font-size: 1.5rem;
-   }
-}
 
 /* Candidate Info */
 
@@ -195,7 +242,9 @@ h2 {
 }
 
 .show-table-btn,
-.close-state-btn {
+.close-state-btn,
+.open-instructions-btn,
+.close-instructions-btn {
    position: relative;
    width: 32px;
    height: 32px;
@@ -208,7 +257,11 @@ h2 {
 .show-table-btn:hover,
 .show-table-btn:focus,
 .close-state-btn:hover,
-.close-state-btn:focus {
+.close-state-btn:focus,
+.close-instructions-btn:hover,
+.close-instructions-btn:focus,
+.open-instructions-btn:hover,
+.open-instructions-btn:focus {
    background: var(--purple);
    color: #fff;
    cursor: pointer;
@@ -274,16 +327,20 @@ h2 {
    width: 100%;
 }
 
-.state[data-candidate="trump"] path {
-   fill: var(--red) !important;
-}
-
-.state[data-candidate="biden"] path {
-   fill: var(--blue) !important;
+.map svg a:hover path {
+   fill: var(--pink) !important;
 }
 
 .state[data-candidate=""] path {
    fill: var(--purple) !important;
+}
+
+.map .state[data-candidate="trump"] path {
+   fill: var(--red) !important;
+}
+
+.map .state[data-candidate="biden"] path {
+   fill: var(--blue) !important;
 }
 
 .state[data-state="Nebraska"] path,

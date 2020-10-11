@@ -10,6 +10,12 @@ const exceptionInputs = document.querySelectorAll('input[type="number"]');
 const current = document.querySelector('.current-state');
 const closeExceptions = document.querySelectorAll('.close-state-btn');
 
+/* Instructions */
+const closeButton = document.querySelector('.close-instructions-btn');
+const openButton = document.querySelector('.open-instructions-btn');
+const instructions = document.querySelector('.instructions');
+const instructionsOverlay = document.querySelector('.instructions-overlay');
+
 /* Candidate votes and progress */
 const trump = document.querySelector('.trump .votes');
 const biden = document.querySelector('.biden .votes');
@@ -26,12 +32,9 @@ let bidenVotes = [];
 const maineTotal = 4;
 const nebraskaTotal = 5;
 
-//const closeButton = document.querySelector('.close-instructions');
-const instructions = document.querySelector('.instructions');
-
 /* 
 Change votes to Trump or to Biden. 
-First double-click goes to Trump, second changes to Biden, third goes back to neutral.
+First click goes to Trump, second changes to Biden, third goes back to neutral.
 Add votes to their respective arrays.
 Remove votes from their respective arrays.
 Sort arrays.
@@ -95,7 +98,6 @@ function removeVotes(state, arrayToChange) {
    // first find the index of the item in the array
    const stateIndex = arrayToChange.findIndex(usa => usa.state === state);
    // Modify the original array
-   //console.log(stateIndex);
    if (stateIndex !== -1) {
       arrayToChange.splice(stateIndex, 1);
    }
@@ -239,8 +241,16 @@ function handleStateInfo(e) {
 
 /* Close Instructions */
 function handleClosebutton() {
-   instructions.classList.add('closed');
    instructions.classList.remove('open');
+   instructions.classList.add('closed');
+   instructionsOverlay.classList.remove('open');
+}
+
+/* Open Instructions */
+function handleOpenbutton() {
+   instructions.classList.add('open');
+   instructions.classList.remove('closed');
+   instructionsOverlay.classList.add('open');
 }
 
 /* Collapse tables showing states for Trump */
@@ -294,8 +304,9 @@ bidenTableButton.addEventListener('click', handleBidenTable);
 
 // Listen for state clicks to change colors and votes
 for (let i = 0; i < states.length; i++) {
-   states[i].addEventListener('dblclick', claimState);
-   states[i].addEventListener('click', handleStateInfo);
+   states[i].addEventListener('click', claimState);
+   states[i].addEventListener('mouseenter', handleStateInfo);
 }
 
-//closeButton.addEventListener('click', handleClosebutton);
+closeButton.addEventListener('click', handleClosebutton);
+openButton.addEventListener('click', handleOpenbutton);
