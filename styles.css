@@ -118,21 +118,57 @@ h3 {
 
 h1 {
    text-align: center;
+   font-size: 1.5rem;
 }
 
 h2 {
    margin: 0;
+   font-size: 1.2rem;
+}
+
+@media screen and (min-width: 600px) {
+   h1 {
+      font-size: 1.8rem;
+   }
+   h2 {
+      font-size: 1.5rem;
+   }
+}
+
+@media screen and (min-width: 1200px) {
+   h1 {
+      font-size: 2rem;
+   }
+   h2 {
+      font-size: 1.5rem;
+   }
 }
 
 /* Candidate Info */
 
+.tables-wrapper {
+   display: grid;
+   grid-template-columns: 1fr;
+   grid-gap: 26px;
+}
+
+@media screen and (min-width: 600px) {
+   .tables-wrapper {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 16px;
+   }
+}
+
+@media screen and (min-width: 1200px) {
+   .tables-wrapper {
+      grid-template-columns: 1fr;
+      grid-gap: 16px;
+   }
+}
+
 .table-wrapper {
    padding: 1em;
    border-radius: 3px;
-}
-
-.table-wrapper + .table-wrapper {
-   margin-top: 1em;
 }
 
 .table-wrapper .candidate {
@@ -217,8 +253,13 @@ h2 {
 
 .map-totals {
    width: 100%;
-   display: grid;
-   grid-template-columns: 3fr 1fr;
+}
+
+@media screen and (min-width: 1200px) {
+   .map-totals {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+   }
 }
 
 .table-row {
@@ -277,5 +318,6 @@ button.update:focus {
 }
 
 footer {
+   margin-top: 24px;
    text-align: center;
 }
