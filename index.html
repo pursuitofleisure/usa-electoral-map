@@ -4,7 +4,7 @@
 <head>
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Interactive Electoral Map 2020 by Diana Le</title>
+   <title>Interactive US Presidential Electoral Map 2020 by Diana Le</title>
    <meta name="description" content="">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -33,9 +33,8 @@
          <h2>Instructions</h2>
          <p>1) <strong>Hover</strong> over each state to view name and electoral information.</p>
          <p>2) <strong>Click</strong> each state to cycle through assignments for Trump, Biden and unassigned.</p>
-         <p><em>Maine and Nebraska do not assign all their delegates to one candidate. You will need to input the
-               values.</em></p>
-         <p><em>Washington, D.C. is tiny but it's there.</em></p>
+         <p><em>Maine and Nebraska do not assign all their delegates to one candidate. You will need to assign
+               individual districts.</em></p>
          <h3>LET'S DO THIS</h3>
       </div>
    </div>
@@ -433,36 +432,40 @@
                   sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccscc" />
             </a>
          </svg>
-
+         <div id="doc">
+            <button class="square-state" data-electorate="3" data-state="District of Columbia"
+               data-candidate="">D.C.</button>
+         </div>
       </div>
       <div class="candidates">
          <div class="current-state">Click on a State</div>
          <div class="exceptions">
             <div class="maine exception-state">
                <h3>Maine <button class="close-state-btn" aria-label="Close Maine Inputs">x</button></h3>
-               <div class="input-group">
-                  <label for="maine-trump">Trump</label><input type="number" id="maine-trump" name="maine-trump" min="0"
-                     max="4">
+               <div class="exception-buttons">
+                  <button class="square-state" data-electorate="2" data-state="Maine - Popular" data-candidate="">Maine
+                     -
+                     Popular</button>
+                  <button class="square-state" data-electorate="1" data-state="Maine - District 1"
+                     data-candidate="">Maine
+                     - District 1</button>
+                  <button class="square-state" data-electorate="1" data-state="Maine - District 2"
+                     data-candidate="">Maine
+                     - District 2</button>
                </div>
-               <div class="input-group">
-                  <label for="maine-biden">Biden</label><input type="number" id="maine-biden" name="maine-biden" min="0"
-                     max="4">
-               </div>
-               <div class="maine-error error"></div>
-               <button id="update-maine" class="update">Update</button>
             </div> <!-- end Maine -->
             <div class="nebraska exception-state">
                <h3>Nebraska <button class="close-state-btn" aria-label="Close Nebraska Inputs">x</button></h3>
-               <div class="input-group">
-                  <label for="nebraska-trump">Trump</label><input type="number" id="nebraska-trump"
-                     name="nebraska-trump" min="0" max="5">
+               <div class="exception-buttons">
+                  <button class="square-state" data-electorate="2" data-state="Nebraska - Popular"
+                     data-candidate="">Nebraska - Popular</button>
+                  <button class="square-state" data-electorate="1" data-state="Nebraska - District 1"
+                     data-candidate="">Nebraska - District 1</button>
+                  <button class="square-state" data-electorate="1" data-state="Nebraska - District 2"
+                     data-candidate="">Nebraska - District 2</button>
+                  <button class="square-state" data-electorate="1" data-state="Nebraska - District 2"
+                     data-candidate="">Nebraska - District 2</button>
                </div>
-               <div class="input-group">
-                  <label for="nebraska-biden">Biden</label><input type="number" id="nebraska-biden"
-                     name="nebraska-biden" min="0" max="5">
-               </div>
-               <div class="nebraska-error error"></div>
-               <button id="update-nebraska" class="update">Update</button>
             </div> <!-- end Nebraska-->
          </div> <!-- end Exceptions -->
          <div class="tables-wrapper">

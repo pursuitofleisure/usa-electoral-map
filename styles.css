@@ -6,6 +6,7 @@
    --exception: #592252;
    --pink: #F0A7A0;
    --white: #F7F7F9;
+   --error: #D67AB1;
 }
 
 body {
@@ -30,7 +31,11 @@ strong {
    text-decoration: underline;
 }
 
-@media screen and (min-width: 600px) {
+h1 {
+   padding: 0 2em;
+}
+
+@media only screen and (min-width: 600px) {
    h1 {
       font-size: 1.8rem;
    }
@@ -39,7 +44,7 @@ strong {
    }
 }
 
-@media screen and (min-width: 1200px) {
+@media only screen and (min-width: 1200px) {
    h1 {
       font-size: 2rem;
    }
@@ -80,6 +85,8 @@ strong {
 
 .instructions.open {
    display: block;
+   width: 75%;
+   max-width: 600px;
 }
 
 .instructions.open .open-instructions-btn {
@@ -308,10 +315,20 @@ h3 {
    width: 100%;
 }
 
+.map {
+   position: relative;
+}
+
 @media screen and (min-width: 1200px) {
    .map-totals {
-      display: grid;
-      grid-template-columns: 3fr 1fr;
+      display: flex;
+      align-items: flex-start;
+   }
+   .map {
+      width: 75%;
+   }
+   .candidates {
+      width: 25%;
    }
 }
 
@@ -348,6 +365,52 @@ h3 {
    fill: var(--exception) !important;
 }
 
+/* Washington DC square */
+#doc {
+   position: absolute;
+   bottom: 26%;
+   right: 0;
+}
+
+@media only screen and (min-width: 600px) {
+   #doc {
+      right: 2em;
+   }
+}
+
+.square-state {
+   background-color: var(--purple);
+   border: 0;
+   padding: .5em 1em;
+   color: #fff;
+   font-size: .9rem;
+}
+
+.square-state:hover,
+.square-state:focus {
+   cursor: pointer;
+   background-color: var(--pink);
+   color: var(--purple);
+}
+
+.square-state[data-candidate="trump"] {
+   background-color: var(--red);
+   color: #fff;
+}
+
+.square-state[data-candidate="biden"] {
+   background-color: var(--blue);
+   color: #fff;
+}
+
+.exception-buttons {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-gap: 0.5em;
+   margin-bottom: 8px;
+}
+
+
 .input-group {
    display: grid;
    grid-template-columns: 1fr 1fr;
@@ -369,7 +432,7 @@ button.update:focus {
 }
 
 .error {
-   color: var(--pink);
+   color: var(--error);
    font-weight: 700;
    margin-bottom: 8px;
 }
