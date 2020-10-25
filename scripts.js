@@ -3,9 +3,9 @@ const states = document.querySelectorAll('.state');//svg map states
 const maineState = document.querySelector('.state[data-state="Maine"]');
 const nebraskaState = document.querySelector('.state[data-state="Nebraska"]');
 const squareStates = document.querySelectorAll('.square-state');//states unable to click from map
-const exceptionInputs = document.querySelectorAll('input[type="number"]');
 const current = document.querySelector('.current-state');
 const closeExceptions = document.querySelectorAll('.close-state-btn');
+const h1 = document.querySelector('h1 span');
 
 /* Instructions */
 const closeButton = document.querySelector('.close-instructions-btn');
@@ -22,6 +22,10 @@ const trumpTable = document.querySelector('.table-trump');
 const bidenTable = document.querySelector('.table-biden');
 const trumpTableButton = document.querySelector('.trump .show-table-btn');
 const bidenTableButton = document.querySelector('.biden .show-table-btn');
+const winner = document.querySelector('.winner');
+const presidentElect = document.querySelector('.winner-president');
+const winnerCloseBtn = document.querySelector('.close-winner-btn');
+let winnerAnnounced = false;
 
 let trumpVotes = [];
 let bidenVotes = [];
@@ -39,21 +43,21 @@ function claimState(e) {
    switch (e.currentTarget.dataset.candidate) {
       case '' :
          e.currentTarget.dataset.candidate = 'trump';
-         let trumpArray = {
+         let trumpObject = {
             state: e.currentTarget.dataset.state,
             votes: Number.parseInt(e.currentTarget.dataset.electorate)
          };
          // Add to object array
-         trumpVotes.push(trumpArray);
+         trumpVotes.push(trumpObject);
          break;
       case 'trump' :
          e.currentTarget.dataset.candidate = 'biden';
-         let bidenArray = {
+         let bidenObject = {
             state: e.currentTarget.dataset.state,
             votes: Number.parseInt(e.currentTarget.dataset.electorate)
          };
          // Add to object array
-         bidenVotes.push(bidenArray);
+         bidenVotes.push(bidenObject);
          // remove from Trump
          removeVotes(e.currentTarget.dataset.state, trumpVotes);
          break;
@@ -97,7 +101,7 @@ function removeVotes(state, arrayToChange) {
    }
 }
 
-/* Update Candidate Votes upon each state double-click */
+/* Update Candidate Votes upon each state's assignment */
 function updateVoteTotals() {
    let trumpTotal = 0;
    let trumpAllStates = '';
@@ -124,28 +128,32 @@ function updateVoteTotals() {
    biden.textContent = `${bidenTotal} Votes`;
    bidenPercentage.style.width = `${bidenTotal / 270 * 100}%`;
    bidenTable.innerHTML = bidenAllStates;
+
+   // display winner dialog once either candidate reaches 270
+   if (trumpTotal >= 270 || bidenTotal >= 270) {
+      if (trumpTotal >= 270) {
+         presidentElect.textContent = `Donald Trump - ${trumpTotal} Votes`;
+         h1.textContent = 'President-Elect Donald Trump';
+      } else {
+         presidentElect.textContent = `🌈 Joe Biden 💕 - ${bidenTotal} Votes`;
+         h1.textContent = 'President-Elect Joe Biden';
+      }
+      if (winnerAnnounced === false ) {
+         winner.classList.add('open');
+         instructionsOverlay.classList.add('open');
+         // Only show winner pop-up once
+         winnerAnnounced = true;
+      }
+   }
 }
 
-/* check electoral vote total to make sure states are accurate (run once) */
+/* check electoral vote total in SVG map to make sure states are accurate (run once) */
 function checkElectoral() {
    let total = 0;
    for(let i = 0; i < states.length; i++) {
       total += Number.parseInt(states[i].dataset.electorate);
    }
    console.log(total);
-}
-
-// Restrict inputs on the exception states
-exceptionInputs.forEach(exception => {
-   exception.addEventListener('keypress', handleExceptionInputs);
-});
-
-// Only allow integers in the number input fields
-function handleExceptionInputs(e) {
-   //console.log(e.key);
-   if (!parseInt(e.key) && e.key !== '0') {
-      e.preventDefault();
-   }
 }
 
 /* Show the current state and electoral count on single click */
@@ -156,11 +164,12 @@ function handleStateInfo(e) {
    current.textContent = `${stateName}: ${stateElectorates} votes`;
 }
 
-/* Close Instructions */
+/* Close Instructions and Close Winner */
 function handleClosebutton() {
    instructions.classList.remove('open');
    instructions.classList.add('closed');
    instructionsOverlay.classList.remove('open');
+   winner.classList.remove('open');
 }
 
 /* Open Instructions */
@@ -192,7 +201,7 @@ function handleBidenTable(e) {
    }
 }
 
-// Check if Maine or Nebraska is clicked to open the forms
+/* Check if Maine or Nebraska is clicked to open the buttons */
 maineState.addEventListener('click', function() {
    const maine = document.querySelector('.maine');
    maine.classList.add('active');
@@ -203,7 +212,7 @@ nebraskaState.addEventListener('click', function() {
    nebraska.classList.add('active');
 });
 
-// Listen for close button on Maine / Nebraska
+/* Listen for close button on Maine / Nebraska */
 closeExceptions.forEach(exception => {
    exception.addEventListener('click', function(e) {
       const closestState = e.currentTarget.closest('.exception-state');
@@ -211,21 +220,25 @@ closeExceptions.forEach(exception => {
    });
 });
 
-// Listen for button clicks to collapse / expand states table
+/* Listen for button clicks to collapse / expand states table */
 trumpTableButton.addEventListener('click', handleTrumpTable);
 bidenTableButton.addEventListener('click', handleBidenTable);
 
-// Listen for state clicks to change colors and votes
-for (let i = 0; i < states.length; i++) {
-   states[i].addEventListener('click', claimState);
-   states[i].addEventListener('mouseenter', handleStateInfo);
-}
+/* Listen for state clicks to change colors and votes */
+states.forEach(state => {
+   state.addEventListener('click', claimState);
+   state.addEventListener('mouseenter', handleStateInfo);
+});
 
-// Listen for square states
+/* Listen for square states */
 squareStates.forEach(state => {
    state.addEventListener('click', claimState);
-})
+});
 
+/* Buttons for instructions */
 closeButton.addEventListener('click', handleClosebutton);
 openButton.addEventListener('click', handleOpenbutton);
 instructionsOverlay.addEventListener('click', handleClosebutton);
+
+/* Button for winner dialog */
+winnerCloseBtn.addEventListener('click', handleClosebutton);

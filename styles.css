@@ -71,7 +71,8 @@ h1 {
    display: block;
 }
 
-.instructions {
+.instructions,
+.winner {
    font-weight: 700;
    position: fixed;
    top: 50%;
@@ -83,7 +84,8 @@ h1 {
    z-index: 100;
 }
 
-.instructions.open {
+.instructions.open,
+.winner.open {
    display: block;
    width: 75%;
    max-width: 600px;
@@ -98,7 +100,8 @@ h1 {
    text-align: center;
 }
 
-.instructions button {
+.instructions button,
+.winner button {
    position: absolute;
    top: 16px;
    right: 16px;
@@ -122,6 +125,21 @@ h1 {
 
 .instructions.closed .open-instructions-btn {
    display: block;
+}
+
+/* Winner */
+
+.winner {
+   display: none;
+   text-align: center;
+}
+
+.winner h2 {
+   margin-bottom: 1em;
+}
+
+.winner h3 {
+   margin-bottom: 0;
 }
 
 .current-state {
@@ -251,7 +269,8 @@ h3 {
 .show-table-btn,
 .close-state-btn,
 .open-instructions-btn,
-.close-instructions-btn {
+.close-instructions-btn,
+.close-winner-btn {
    position: relative;
    width: 32px;
    height: 32px;
@@ -268,7 +287,9 @@ h3 {
 .close-instructions-btn:hover,
 .close-instructions-btn:focus,
 .open-instructions-btn:hover,
-.open-instructions-btn:focus {
+.open-instructions-btn:focus,
+.close-winner-btn:hover,
+.close-winner-btn:focus {
    background: var(--purple);
    color: #fff;
    cursor: pointer;

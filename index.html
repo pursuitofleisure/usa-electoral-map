@@ -5,7 +5,8 @@
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <title>Interactive US Presidential Electoral Map 2020 by Diana Le</title>
-   <meta name="description" content="">
+   <meta name="description"
+      content="Interactive US Presidential Electoral Map 2020 by Diana Le. Click each state to assign totlas to candidates and watch their progress">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="normalize.css">
@@ -14,7 +15,7 @@
 
 <body>
    <div class="instructions-overlay open"></div>
-   <h1>🇺🇸 USA Presidential Election 2020 - Make It End, Please!</h1>
+   <h1>🇺🇸 USA Presidential Election 2020 - <span>Make It End, Please!</span></h1>
    <div class="hurdle-wrapper">
       <div class="hurdle">
          <div class="hurdle-biden">
@@ -38,8 +39,12 @@
          <h3>LET'S DO THIS</h3>
       </div>
    </div>
-
    <!-- end instructions -->
+   <div class="winner">
+      <button class="close-winner-btn" aria-label="Close Winner">x</button>
+      <h2>President-Elect</h2>
+      <h3 class="winner-president"></h3>
+   </div>
    <div class="map-totals">
       <div class="map">
          <?xml version="1.0" encoding="UTF-8" standalone="no"?>
