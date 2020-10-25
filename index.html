@@ -4,9 +4,10 @@
 <head>
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Interactive US Presidential Electoral Map 2020 by Diana Le</title>
+   <title>Interactive US Presidential Electoral Map 2020</title>
    <meta name="description"
       content="Interactive US Presidential Electoral Map 2020 by Diana Le. Click each state to assign totlas to candidates and watch their progress">
+   <meta name="author" content="Diana Le">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="normalize.css">
@@ -18,18 +19,18 @@
    <h1>🇺🇸 USA Presidential Election 2020 - <span>Make It End, Please!</span></h1>
    <div class="hurdle-wrapper">
       <div class="hurdle">
-         <div class="hurdle-biden">
-            <div class="bar-biden"></div>
+         <div class="hurdle-dem">
+            <div class="bar-dem"></div>
          </div>
-         <div class="hurdle-trump">
-            <div class="bar-trump"></div>
+         <div class="hurdle-gop">
+            <div class="bar-gop"></div>
          </div>
       </div>
       <div class="flag">🏆<br />270 to Win</div>
    </div> <!-- end hurdle wrapper -->
    <div class="instructions open">
-      <button class="open-instructions-btn" aria-label="Open Instructions" title="Instructions">i</button>
-      <button class="close-instructions-btn" aria-label="Close Instructions">x</button>
+      <button class="open-instructions-btn" aria-label="Open Instructions" title="Instructions"><span>i</span></button>
+      <button class="close-instructions-btn" aria-label="Close Instructions"><span>x</span></button>
       <div class="instructions-text">
          <h2>Instructions</h2>
          <p>1) <strong>Hover</strong> over each state to view name and electoral information.</p>
@@ -41,7 +42,7 @@
    </div>
    <!-- end instructions -->
    <div class="winner">
-      <button class="close-winner-btn" aria-label="Close Winner">x</button>
+      <button class="close-winner-btn" aria-label="Close Winner"><span>x</span></button>
       <h2>President-Elect</h2>
       <h3 class="winner-president"></h3>
    </div>
@@ -446,7 +447,7 @@
          <div class="current-state">Click on a State</div>
          <div class="exceptions">
             <div class="maine exception-state">
-               <h3>Maine <button class="close-state-btn" aria-label="Close Maine Inputs">x</button></h3>
+               <h3>Maine <button class="close-state-btn" aria-label="Close Maine Inputs"><span>x</span></button></h3>
                <div class="exception-buttons">
                   <button class="square-state" data-electorate="2" data-state="Maine - Popular" data-candidate="">Maine
                      -
@@ -460,7 +461,8 @@
                </div>
             </div> <!-- end Maine -->
             <div class="nebraska exception-state">
-               <h3>Nebraska <button class="close-state-btn" aria-label="Close Nebraska Inputs">x</button></h3>
+               <h3>Nebraska <button class="close-state-btn" aria-label="Close Nebraska Inputs"><span>x</span></button>
+               </h3>
                <div class="exception-buttons">
                   <button class="square-state" data-electorate="2" data-state="Nebraska - Popular"
                      data-candidate="">Nebraska - Popular</button>
@@ -474,27 +476,29 @@
             </div> <!-- end Nebraska-->
          </div> <!-- end Exceptions -->
          <div class="tables-wrapper">
-            <div class="table-wrapper table-wrapper-trump">
-               <div class="trump candidate">
-                  <button class="show-table-btn" aria-expanded="true" aria-label="Show Trump States"></button>
-                  <h2 class="elect">Trump</h2>
-                  <h2 class="votes">0</h2>
+            <div class="table-wrapper table-wrapper-gop">
+               <div class="gop candidate">
+                  <button class="show-table-btn" aria-expanded="true" aria-label="Show GOP States"></button>
+                  <h2 class="elect elect-gop">Republican</h2>
+                  <h2 class="gop-votes">0</h2>
                </div>
-               <div class="table table-trump" aria-expanded="true"></div>
-            </div> <!-- end table wrapper Trump -->
-            <div class="table-wrapper table-wrapper-biden">
-               <div class="biden candidate">
-                  <button class="show-table-btn" aria-expanded="true" aria-label="Show Biden States"></button>
-                  <h2 class="elect">Biden</h2>
-                  <h2 class="votes">0</h2>
+               <div class="table table-gop" aria-expanded="true"></div>
+            </div> <!-- end table wrapper GOP -->
+            <div class="table-wrapper table-wrapper-dem">
+               <div class="dem candidate">
+                  <button class="show-table-btn" aria-expanded="true" aria-label="Show Democrat States"></button>
+                  <h2 class="elect elect-dem">Democrat</h2>
+                  <h2 class="dem-votes">0</h2>
                </div>
-               <div class="table table-biden" aria-expanded="true"></div>
-            </div> <!-- end table wrapper Biden -->
+               <div class="table table-dem" aria-expanded="true"></div>
+            </div> <!-- end table wrapper Democrat -->
          </div> <!-- end tables -->
       </div> <!-- end candidates -->
 
    </div> <!-- end map totals -->
-   <footer>Made in the USA by <a href="https://github.com/pursuitofleisure" target="_blank">Pursuit of Leisure</a>
+   <footer>
+      View on <a href="https://github.com/pursuitofleisure" target="_blank">Github</a> | Made in the USA by <a
+         href="https://www.pursuitofleisure.com/" target="_blank">Diana Le</a>
    </footer>
    <script src="scripts.js" async defer></script>
 </body>

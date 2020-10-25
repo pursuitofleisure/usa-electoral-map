@@ -14,25 +14,39 @@ const instructions = document.querySelector('.instructions');
 const instructionsOverlay = document.querySelector('.instructions-overlay');
 
 /* Candidate votes and progress */
-const trump = document.querySelector('.trump .votes');
-const biden = document.querySelector('.biden .votes');
-const bidenPercentage = document.querySelector('.bar-biden');
-const trumpPercentage = document.querySelector('.bar-trump');
-const trumpTable = document.querySelector('.table-trump');
-const bidenTable = document.querySelector('.table-biden');
-const trumpTableButton = document.querySelector('.trump .show-table-btn');
-const bidenTableButton = document.querySelector('.biden .show-table-btn');
+const gop = document.querySelector('.gop-votes');
+const dem = document.querySelector('.dem-votes');
+const demPercentage = document.querySelector('.bar-dem');
+const gopPercentage = document.querySelector('.bar-gop');
+const gopTable = document.querySelector('.table-gop');
+const demTable = document.querySelector('.table-dem');
+const gopTableButton = document.querySelector('.gop .show-table-btn');
+const demTableButton = document.querySelector('.dem .show-table-btn');
+const electGop = document.querySelector('.elect-gop');
+const electDem = document.querySelector('.elect-dem');
+
+/* Winner */
 const winner = document.querySelector('.winner');
 const presidentElect = document.querySelector('.winner-president');
 const winnerCloseBtn = document.querySelector('.close-winner-btn');
 let winnerAnnounced = false;
 
-let trumpVotes = [];
-let bidenVotes = [];
+let gopVotes = [];
+let demVotes = [];
+
+/* Input candidate names */
+const gopCandidate = 'Donald Trump';
+const demCandidate = 'Joe Biden';
+const gopTableHeading = 'Trump';
+const demTableHeading = 'Biden';
+
+/* Change Table Headings */
+electGop.innerText = gopTableHeading;
+electDem.innerText = demTableHeading;
 
 /* 
-Change votes to Trump or to Biden. 
-First click goes to Trump, second changes to Biden, third goes back to neutral.
+Change votes to GOP or to Democrat. 
+First click goes to GOP, second changes to Democrat, third goes back to neutral.
 Add votes to their respective arrays.
 Remove votes from their respective arrays.
 Sort arrays.
@@ -42,29 +56,29 @@ function claimState(e) {
    e.preventDefault();
    switch (e.currentTarget.dataset.candidate) {
       case '' :
-         e.currentTarget.dataset.candidate = 'trump';
-         let trumpObject = {
+         e.currentTarget.dataset.candidate = 'gop';
+         let gopObject = {
             state: e.currentTarget.dataset.state,
             votes: Number.parseInt(e.currentTarget.dataset.electorate)
          };
          // Add to object array
-         trumpVotes.push(trumpObject);
+         gopVotes.push(gopObject);
          break;
-      case 'trump' :
-         e.currentTarget.dataset.candidate = 'biden';
-         let bidenObject = {
+      case 'gop' :
+         e.currentTarget.dataset.candidate = 'dem';
+         let demObject = {
             state: e.currentTarget.dataset.state,
             votes: Number.parseInt(e.currentTarget.dataset.electorate)
          };
          // Add to object array
-         bidenVotes.push(bidenObject);
-         // remove from Trump
-         removeVotes(e.currentTarget.dataset.state, trumpVotes);
+         demVotes.push(demObject);
+         // remove from GOP
+         removeVotes(e.currentTarget.dataset.state, gopVotes);
          break;
-      case 'biden' :
+      case 'dem' :
          e.currentTarget.dataset.candidate = '';
-         // remove from Biden
-         removeVotes(e.currentTarget.dataset.state, bidenVotes);
+         // remove from Democrat
+         removeVotes(e.currentTarget.dataset.state, demVotes);
          break;
       case 'exception' :
          break;
@@ -103,40 +117,40 @@ function removeVotes(state, arrayToChange) {
 
 /* Update Candidate Votes upon each state's assignment */
 function updateVoteTotals() {
-   let trumpTotal = 0;
-   let trumpAllStates = '';
-   sortCandidateArray(trumpVotes);
-   for(let t = 0; t < trumpVotes.length; t++) {
-      trumpTotal += trumpVotes[t].votes;
-      trumpAllStates += `<div class="table-row"><div>${trumpVotes[t].state}</div><div>${trumpVotes[t].votes}</div></div>`;
+   let gopTotal = 0;
+   let gopAllStates = '';
+   sortCandidateArray(gopVotes);
+   for(let t = 0; t < gopVotes.length; t++) {
+      gopTotal += gopVotes[t].votes;
+      gopAllStates += `<div class="table-row"><div>${gopVotes[t].state}</div><div>${gopVotes[t].votes}</div></div>`;
    }
 
    // Update the HTML with the states and percentage to 270
-   trump.textContent = `${trumpTotal} Votes`;
-   trumpPercentage.style.width = `${trumpTotal / 270 * 100}%`;
-   trumpTable.innerHTML = trumpAllStates;
+   gop.textContent = `${gopTotal} Votes`;
+   gopPercentage.style.width = `${gopTotal / 270 * 100}%`;
+   gopTable.innerHTML = gopAllStates;
  
-   let bidenTotal = 0;
-   let bidenAllStates = '';
-   sortCandidateArray(bidenVotes);
-   for(let b = 0; b < bidenVotes.length; b++) {
-      bidenTotal += bidenVotes[b].votes;
-      bidenAllStates += `<div class="table-row"><div>${bidenVotes[b].state}</div><div>${bidenVotes[b].votes}</div></div>`;
+   let demTotal = 0;
+   let demAllStates = '';
+   sortCandidateArray(demVotes);
+   for(let b = 0; b < demVotes.length; b++) {
+      demTotal += demVotes[b].votes;
+      demAllStates += `<div class="table-row"><div>${demVotes[b].state}</div><div>${demVotes[b].votes}</div></div>`;
    }
 
    // Update the HTML with the states and percentage to 270
-   biden.textContent = `${bidenTotal} Votes`;
-   bidenPercentage.style.width = `${bidenTotal / 270 * 100}%`;
-   bidenTable.innerHTML = bidenAllStates;
+   dem.textContent = `${demTotal} Votes`;
+   demPercentage.style.width = `${demTotal / 270 * 100}%`;
+   demTable.innerHTML = demAllStates;
 
    // display winner dialog once either candidate reaches 270
-   if (trumpTotal >= 270 || bidenTotal >= 270) {
-      if (trumpTotal >= 270) {
-         presidentElect.textContent = `Donald Trump - ${trumpTotal} Votes`;
-         h1.textContent = 'President-Elect Donald Trump';
+   if (gopTotal >= 270 || demTotal >= 270) {
+      if (gopTotal >= 270) {
+         presidentElect.textContent = `${gopCandidate} - ${gopTotal} Votes`;
+         h1.textContent = `President-Elect ${gopCandidate}`;
       } else {
-         presidentElect.textContent = `🌈 Joe Biden 💕 - ${bidenTotal} Votes`;
-         h1.textContent = 'President-Elect Joe Biden';
+         presidentElect.textContent = `🌈 ${demCandidate} 💕 - ${demTotal} Votes`;
+         h1.textContent = `President-Elect ${demCandidate}`;
       }
       if (winnerAnnounced === false ) {
          winner.classList.add('open');
@@ -179,24 +193,24 @@ function handleOpenbutton() {
    instructionsOverlay.classList.add('open');
 }
 
-/* Collapse tables showing states for Trump */
-function handleTrumpTable(e) {
-   if (trumpTable.getAttribute('aria-expanded') === 'true') {
-      trumpTable.setAttribute('aria-expanded', 'false');
+/* Collapse tables showing states for GOP Candidate */
+function handleGopTable(e) {
+   if (gopTable.getAttribute('aria-expanded') === 'true') {
+      gopTable.setAttribute('aria-expanded', 'false');
       e.currentTarget.setAttribute('aria-expanded', 'false');
    } else {
-      trumpTable.setAttribute('aria-expanded', 'true');
+      gopTable.setAttribute('aria-expanded', 'true');
       e.currentTarget.setAttribute('aria-expanded', 'true');
    }
 }
 
-/* Collapse tables showing states for Biden */
-function handleBidenTable(e) {
-   if (bidenTable.getAttribute('aria-expanded') === 'true') {
-      bidenTable.setAttribute('aria-expanded', 'false');
+/* Collapse tables showing states for Dem Candidate */
+function handleDemTable(e) {
+   if (demTable.getAttribute('aria-expanded') === 'true') {
+      demTable.setAttribute('aria-expanded', 'false');
       e.currentTarget.setAttribute('aria-expanded', 'false');
    } else {
-      bidenTable.setAttribute('aria-expanded', 'true');
+      demTable.setAttribute('aria-expanded', 'true');
       e.currentTarget.setAttribute('aria-expanded', 'true');
    }
 }
@@ -221,8 +235,8 @@ closeExceptions.forEach(exception => {
 });
 
 /* Listen for button clicks to collapse / expand states table */
-trumpTableButton.addEventListener('click', handleTrumpTable);
-bidenTableButton.addEventListener('click', handleBidenTable);
+gopTableButton.addEventListener('click', handleGopTable);
+demTableButton.addEventListener('click', handleDemTable);
 
 /* Listen for state clicks to change colors and votes */
 states.forEach(state => {
