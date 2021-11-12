@@ -19,7 +19,7 @@ This is an interactive (SVG) map of USA states with the ability to click on each
 * Sorting
 
 ## CSS Layouts used:
-* Gid
+* Grid
 * Flexbox
 
 # Credits
