@@ -85,6 +85,7 @@ h1 {
    background-color: #fff;
    padding: 16px;
    border: 4px solid var(--purple);
+   border-radius: 8px;
    z-index: 100;
 }
 
@@ -201,8 +202,9 @@ h3 {
 }
 
 .hurdle-dem {
-   border: 2px solid var(--blue);
    position: relative;
+   border: 2px solid var(--blue);
+   border-radius: 8px 0 0 8px;
 }
 
 .bar-dem {
@@ -214,8 +216,9 @@ h3 {
 }
 
 .hurdle-gop {
-   border: 2px solid var(--red);
    position: relative;
+   border: 2px solid var(--red);
+   border-radius: 0 8px 8px 0;
 }
 
 .bar-gop {
@@ -260,7 +263,7 @@ h3 {
 
 .table-wrapper {
    padding: 1em;
-   border-radius: 3px;
+   border-radius: 8px;
 }
 
 .table-wrapper .candidate {
@@ -467,6 +470,7 @@ h3 {
    padding: .5em 1em;
    color: #fff;
    font-size: .9rem;
+   border-radius: 8px;
 }
 
 .square-state:hover,
