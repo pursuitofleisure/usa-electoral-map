@@ -1,5 +1,5 @@
 /* Electoral values */
-/* TODO: Maine and Nebraska partial values */
+/* https://www.archives.gov/electoral-college/allocation */
 const electoralValues = [
    { state: 'Alabama', allocation: 9 },
    { state: 'Alaska', allocation: 3 },
@@ -214,10 +214,10 @@ function updateVoteTotals() {
    if (gopTotal >= 270 || demTotal >= 270) {
       if (gopTotal >= 270) {
          presidentElect.textContent = `${gopCandidate} - ${gopTotal} Votes`;
-         h1.textContent = `President-Elect ${gopCandidate}`;
+         h1.textContent = ` - President-Elect ${gopCandidate}`;
       } else {
          presidentElect.textContent = `🌈 ${demCandidate} 💕 - ${demTotal} Votes`;
-         h1.textContent = `President-Elect ${demCandidate}`;
+         h1.textContent = ` - President-Elect ${demCandidate}`;
       }
       if (winnerAnnounced === false ) {
          winner.classList.add('open');
@@ -241,7 +241,8 @@ function checkElectoral() {
 function handleStateInfo(e) {
    e.preventDefault();
    const stateName = e.currentTarget.dataset.state;
-   const stateElectorates = e.currentTarget.dataset.electorate;
+   //const stateElectorates = e.currentTarget.dataset.electorate;
+   const stateElectorates = electoralValues.find(item => item.state === e.currentTarget.dataset.state).allocation;
    current.textContent = `${stateName}: ${stateElectorates} votes`;
 }
 
