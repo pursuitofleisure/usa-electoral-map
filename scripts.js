@@ -1,3 +1,65 @@
+/* Electoral values */
+const electoralValues = [
+   { state: 'Alabama', allocation: 9 },
+   { state: 'Alaska', allocation: 3 },
+   { state: 'Arizona', allocation: 11 },
+   { state: 'Arkansas', allocation: 6 },
+   { state: 'California', allocation: 54 },
+   { state: 'Colorado', allocation: 10 },
+   { state: 'Connecticut', allocation: 7 },
+   { state: 'Delaware', allocation: 3 },
+   { state: 'District of Columbia', allocation: 3 },
+   { state: 'Florida', allocation: 30 },
+   { state: 'Georgia', allocation: 16 },
+   { state: 'Hawaii', allocation: 4 },
+   { state: 'Idaho', allocation: 4 },
+   { state: 'Illinois', allocation: 19 },
+   { state: 'Indiana', allocation: 11 },
+   { state: 'Iowa', allocation: 6 },
+   { state: 'Kansas', allocation: 6 },
+   { state: 'Kentucky', allocation: 8 },
+   { state: 'Louisiana', allocation: 8 },
+   { state: 'Maine', allocation: 4 },
+   { state: 'Maine - Popular', allocation: 2 },
+   { state: 'Maine - District 1', allocation: 1 },
+   { state: 'Maine - District 2', allocation: 1 },
+   { state: 'Maryland', allocation: 10 },
+   { state: 'Massachusetts', allocation: 11 },
+   { state: 'Michigan', allocation: 15 },
+   { state: 'Minnesota', allocation: 10 },
+   { state: 'Mississippi', allocation: 6 },
+   { state: 'Missouri', allocation: 10 },
+   { state: 'Montana', allocation: 4 },
+   { state: 'Nebraska', allocation: 5 },
+   { state: 'Nebraska - Popular', allocation: 2 },
+   { state: 'Nebraska - District 1', allocation: 1 },
+   { state: 'Nebraska - District 2', allocation: 1 },
+   { state: 'Nebraska - District 3', allocation: 1 },
+   { state: 'Nevada', allocation: 6 },
+   { state: 'New Hampshire', allocation: 4 },
+   { state: 'New Jersey', allocation: 14 },
+   { state: 'New Mexico', allocation: 5 },
+   { state: 'New York', allocation: 28 },
+   { state: 'North Carolina', allocation: 16 },
+   { state: 'North Dakota', allocation: 3 },
+   { state: 'Ohio', allocation: 17 },
+   { state: 'Oklahoma', allocation: 7 },
+   { state: 'Oregon', allocation: 8 },
+   { state: 'Pennsylvania', allocation: 19 },
+   { state: 'Rhode Island', allocation: 4 },
+   { state: 'South Carolina', allocation: 9 },
+   { state: 'South Dakota', allocation: 3 },
+   { state: 'Tennessee', allocation: 11 },
+   { state: 'Texas', allocation: 40 },
+   { state: 'Utah', allocation: 6 },
+   { state: 'Vermont', allocation: 3 },
+   { state: 'Virginia', allocation: 13 },
+   { state: 'Washington', allocation: 12 },
+   { state: 'West Virginia', allocation: 4 },
+   { state: 'Wisconsin', allocation: 10 },
+   { state: 'Wyoming', allocation: 3 },
+];
+
 /* States */
 const states = document.querySelectorAll('.state');//svg map states
 const maineState = document.querySelector('.state[data-state="Maine"]');
@@ -54,12 +116,13 @@ Update vote totals at the end.
 */
 function claimState(e) {
    e.preventDefault();
+
    switch (e.currentTarget.dataset.candidate) {
       case '' :
          e.currentTarget.dataset.candidate = 'gop';
          let gopObject = {
             state: e.currentTarget.dataset.state,
-            votes: Number.parseInt(e.currentTarget.dataset.electorate)
+            votes: electoralValues.find(item => item.state === e.currentTarget.dataset.state).allocation
          };
          // Add to object array
          gopVotes.push(gopObject);
@@ -68,7 +131,7 @@ function claimState(e) {
          e.currentTarget.dataset.candidate = 'dem';
          let demObject = {
             state: e.currentTarget.dataset.state,
-            votes: Number.parseInt(e.currentTarget.dataset.electorate)
+            votes: electoralValues.find(item => item.state === e.currentTarget.dataset.state).allocation
          };
          // Add to object array
          demVotes.push(demObject);
@@ -147,10 +210,10 @@ function updateVoteTotals() {
    if (gopTotal >= 270 || demTotal >= 270) {
       if (gopTotal >= 270) {
          presidentElect.textContent = `${gopCandidate} - ${gopTotal} Votes`;
-         h1.textContent = `President-Elect ${gopCandidate}`;
+         h1.textContent = ` - President-Elect ${gopCandidate}`;
       } else {
-         presidentElect.textContent = `🌈 ${demCandidate} 💕 - ${demTotal} Votes`;
-         h1.textContent = `President-Elect ${demCandidate}`;
+         presidentElect.textContent = `${demCandidate} 🎆 - ${demTotal} Votes`;
+         h1.textContent = ` - President-Elect ${demCandidate}`;
       }
       if (winnerAnnounced === false ) {
          winner.classList.add('open');
@@ -161,11 +224,13 @@ function updateVoteTotals() {
    }
 }
 
-/* check electoral vote total in SVG map to make sure states are accurate (run once) */
+/* check electoral vote total (538) in SVG map to make sure states are accurate (run once) */
 function checkElectoral() {
    let total = 0;
+   let stateName = '';
    for(let i = 0; i < states.length; i++) {
-      total += Number.parseInt(states[i].dataset.electorate);
+      stateName = states[i].dataset.state;
+      total += Number.parseInt(electoralValues.find(item => item.state === stateName).allocation);
    }
    console.log(total);
 }
@@ -174,7 +239,7 @@ function checkElectoral() {
 function handleStateInfo(e) {
    e.preventDefault();
    const stateName = e.currentTarget.dataset.state;
-   const stateElectorates = e.currentTarget.dataset.electorate;
+   const stateElectorates = electoralValues.find(item => item.state === e.currentTarget.dataset.state).allocation;
    current.textContent = `${stateName}: ${stateElectorates} votes`;
 }
 
