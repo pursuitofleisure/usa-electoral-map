@@ -1,4 +1,4 @@
-# Interactive USA Electoral Map for the 2020 Presidential Election
+# Interactive USA Electoral Map for the 2024 Presidential Election
 
 This is an interactive (SVG) map of USA states with the ability to click on each state to change the electoral vote totals for each candidate. The states/votes for each candidate are stored in an array with the ability to view each state won by each candidate.
 
