@@ -6,11 +6,13 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <title>Interactive US Presidential Electoral Map 2024</title>
    <meta name="description"
-      content="Interactive US Presidential Electoral Map 2020 by Diana Le. Click each state to assign totals to candidates and watch their progress">
+      content="Interactive US Presidential Electoral Map 2024 by Diana Le. Click each state to assign totals to candidates and watch their progress">
    <meta name="author" content="Diana Le">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="normalize.css">
    <link rel="stylesheet" href="styles.css">
+   <link rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦅</text></svg>">
 </head>
 
 <body>
@@ -475,14 +477,6 @@
             </div> <!-- end Nebraska-->
          </div> <!-- end Exceptions -->
          <div class="tables-wrapper">
-            <div class="table-wrapper table-wrapper-gop">
-               <div class="gop candidate">
-                  <button class="show-table-btn" aria-expanded="true" aria-label="Show GOP States"></button>
-                  <h2 class="elect elect-gop">Republican</h2>
-                  <h2 class="gop-votes">0</h2>
-               </div>
-               <div class="table table-gop" aria-expanded="true"></div>
-            </div> <!-- end table wrapper GOP -->
             <div class="table-wrapper table-wrapper-dem">
                <div class="dem candidate">
                   <button class="show-table-btn" aria-expanded="true" aria-label="Show Democrat States"></button>
@@ -491,6 +485,14 @@
                </div>
                <div class="table table-dem" aria-expanded="true"></div>
             </div> <!-- end table wrapper Democrat -->
+            <div class="table-wrapper table-wrapper-gop">
+               <div class="gop candidate">
+                  <button class="show-table-btn" aria-expanded="true" aria-label="Show GOP States"></button>
+                  <h2 class="elect elect-gop">Republican</h2>
+                  <h2 class="gop-votes">0</h2>
+               </div>
+               <div class="table table-gop" aria-expanded="true"></div>
+            </div> <!-- end table wrapper GOP -->
          </div> <!-- end tables -->
       </div> <!-- end candidates -->
 
