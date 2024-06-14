@@ -1,5 +1,4 @@
 /* Electoral values */
-/* https://www.archives.gov/electoral-college/allocation */
 const electoralValues = [
    { state: 'Alabama', allocation: 9 },
    { state: 'Alaska', allocation: 3 },
@@ -60,7 +59,6 @@ const electoralValues = [
    { state: 'Wisconsin', allocation: 10 },
    { state: 'Wyoming', allocation: 3 },
 ];
-
 
 /* States */
 const states = document.querySelectorAll('.state');//svg map states
@@ -124,8 +122,6 @@ function claimState(e) {
          e.currentTarget.dataset.candidate = 'gop';
          let gopObject = {
             state: e.currentTarget.dataset.state,
-            //votes: Number.parseInt(e.currentTarget.dataset.electorate)
-            //votes: electoralValues[e.currentTarget.dataset.state].allocation,
             votes: electoralValues.find(item => item.state === e.currentTarget.dataset.state).allocation
          };
          // Add to object array
@@ -216,7 +212,7 @@ function updateVoteTotals() {
          presidentElect.textContent = `${gopCandidate} - ${gopTotal} Votes`;
          h1.textContent = ` - President-Elect ${gopCandidate}`;
       } else {
-         presidentElect.textContent = `🌈 ${demCandidate} 💕 - ${demTotal} Votes`;
+         presidentElect.textContent = `${demCandidate} 🎆 - ${demTotal} Votes`;
          h1.textContent = ` - President-Elect ${demCandidate}`;
       }
       if (winnerAnnounced === false ) {
@@ -228,11 +224,13 @@ function updateVoteTotals() {
    }
 }
 
-/* check electoral vote total in SVG map to make sure states are accurate (run once) */
+/* check electoral vote total (538) in SVG map to make sure states are accurate (run once) */
 function checkElectoral() {
    let total = 0;
+   let stateName = '';
    for(let i = 0; i < states.length; i++) {
-      total += Number.parseInt(states[i].dataset.electorate);
+      stateName = states[i].dataset.state;
+      total += Number.parseInt(electoralValues.find(item => item.state === stateName).allocation);
    }
    console.log(total);
 }
@@ -241,7 +239,6 @@ function checkElectoral() {
 function handleStateInfo(e) {
    e.preventDefault();
    const stateName = e.currentTarget.dataset.state;
-   //const stateElectorates = e.currentTarget.dataset.electorate;
    const stateElectorates = electoralValues.find(item => item.state === e.currentTarget.dataset.state).allocation;
    current.textContent = `${stateName}: ${stateElectorates} votes`;
 }
