@@ -93,6 +93,7 @@ const presidentElect = document.querySelector('.winner-president');
 const winnerCloseBtn = document.querySelector('.close-winner-btn');
 let winnerAnnounced = false;
 
+/* Create arrays to store objects of states and votes */
 let gopVotes = [];
 let demVotes = [];
 
@@ -105,6 +106,23 @@ const demTableHeading = 'Biden';
 /* Change Table Headings */
 electGop.innerText = gopTableHeading;
 electDem.innerText = demTableHeading;
+
+/* Local storage variables */
+const saveBtn = document.querySelector('.save-btn');
+const clearBtn = document.querySelector('.clear-btn');
+
+/* Pull values from local storage only if they exist */
+/* TODO: loop through states and exceptions and set the data-candidate attribute from local storage */
+if (localStorage.getItem("gopVotes") !== null || localStorage.getItem("demVotes") !== null) {
+   if (localStorage.getItem("gopVotes") !== null) {
+      gopVotes = JSON.parse(localStorage.getItem("gopVotes"));
+   }
+   if (localStorage.getItem("demVotes") !== null) {
+      demVotes = JSON.parse(localStorage.getItem("demVotes"));
+   }
+   updateVoteTotals();
+}
+
 
 /* 
 Change votes to GOP or to Democrat. 
@@ -321,3 +339,32 @@ instructionsOverlay.addEventListener('click', handleClosebutton);
 
 /* Button for winner dialog */
 winnerCloseBtn.addEventListener('click', handleClosebutton);
+
+/* TODO: Local storage 
+
+- Create save/clear buttons
+- Upon save, delete existing local storage and replace with new
+   - Show last save time
+- Store gopVotes and demVotes arrays
+- On page load, loop through each array
+   - If the state exists, then add the respective value to the data-attribute in the map
+   - Also need to loop through the exception states of Maine and Nebraska
+   - If candidate has 270+ votes, update the title
+
+*/
+
+saveBtn.addEventListener('click', handleSaveStorage);
+clearBtn.addEventListener('click', handleClearStorage);
+
+function handleSaveStorage() {
+   if (gopVotes.length > 0) {
+      localStorage.setItem("gopVotes", JSON.stringify(gopVotes));
+   }
+   if (demVotes.length > 0) {
+      localStorage.setItem("demVotes", JSON.stringify(demVotes));
+   }
+}
+
+function handleClearStorage() {
+   localStorage.clear();
+}
