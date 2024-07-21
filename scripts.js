@@ -111,18 +111,7 @@ electDem.innerText = demTableHeading;
 const saveBtn = document.querySelector('.save-btn');
 const clearBtn = document.querySelector('.clear-btn');
 
-/* Pull values from local storage only if they exist */
-/* TODO: loop through states and exceptions and set the data-candidate attribute from local storage */
-if (localStorage.getItem("gopVotes") !== null || localStorage.getItem("demVotes") !== null) {
-   if (localStorage.getItem("gopVotes") !== null) {
-      gopVotes = JSON.parse(localStorage.getItem("gopVotes"));
-   }
-   if (localStorage.getItem("demVotes") !== null) {
-      demVotes = JSON.parse(localStorage.getItem("demVotes"));
-   }
-   updateVoteTotals();
-}
-
+loadLocalStorage();
 
 /* 
 Change votes to GOP or to Democrat. 
@@ -350,6 +339,7 @@ winnerCloseBtn.addEventListener('click', handleClosebutton);
    - If the state exists, then add the respective value to the data-attribute in the map
    - Also need to loop through the exception states of Maine and Nebraska
    - If candidate has 270+ votes, update the title
+- Fix issue if winner is saved with two dialog boxes showing at once
 
 */
 
@@ -367,4 +357,51 @@ function handleSaveStorage() {
 
 function handleClearStorage() {
    localStorage.clear();
+   location.reload();
+}
+
+function loadLocalStorage() {
+   /* Pull values from local storage only if they exist */
+   /* Loop through states and exceptions and set the data-candidate attribute from local storage */
+
+   const gopStates = [];
+   const demStates = [];
+
+   if (localStorage.getItem("gopVotes") !== null || localStorage.getItem("demVotes") !== null) {
+      if (localStorage.getItem("gopVotes") !== null) {
+         gopVotes = JSON.parse(localStorage.getItem("gopVotes"));
+         // create array of GOP state names
+         for(let t = 0; t < gopVotes.length; t++) {
+            gopStates.push(gopVotes[t].state);
+         }
+      }
+      if (localStorage.getItem("demVotes") !== null) {
+         demVotes = JSON.parse(localStorage.getItem("demVotes"));
+         // create array of Dem state names
+         for(let t = 0; t < demVotes.length; t++) {
+            demStates.push(demVotes[t].state);
+         }
+      }
+      updateVoteTotals();
+
+      // update state attributes for color
+      states.forEach(state => {
+         if (gopStates.includes(state.dataset.state)) {
+            state.dataset.candidate = "gop";
+         }
+         if (demStates.includes(state.dataset.state)) {
+            state.dataset.candidate = "dem";
+         }
+      });
+
+      // update Maine/Nebrask colors
+      squareStates.forEach(state => {
+         if (gopStates.includes(state.dataset.state)) {
+            state.dataset.candidate = "gop";
+         }
+         if (demStates.includes(state.dataset.state)) {
+            state.dataset.candidate = "dem";
+         }
+      });
+   }
 }
