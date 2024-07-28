@@ -91,7 +91,10 @@ const electDem = document.querySelector('.elect-dem');
 const winner = document.querySelector('.winner');
 const presidentElect = document.querySelector('.winner-president');
 const winnerCloseBtn = document.querySelector('.close-winner-btn');
-let winnerAnnounced = false;
+let winnerAnnounced;
+if (localStorage.getItem('winnerAnnounced')) {
+   winnerAnnounced = localStorage.getItem('winnerAnnounced');
+}
 
 /* Create arrays to store objects of states and votes */
 let gopVotes = [];
@@ -108,8 +111,14 @@ electGop.innerText = gopTableHeading;
 electDem.innerText = demTableHeading;
 
 /* Local storage variables */
+const savedTime = document.querySelector('.save-time');
 const saveBtn = document.querySelector('.save-btn');
 const clearBtn = document.querySelector('.clear-btn');
+if (localStorage.getItem('saveTime')) {
+   const saveTime = localStorage.getItem('saveTime');
+   savedTime.innerHTML = `Last saved:  ${saveTime}`;
+}
+
 
 loadLocalStorage();
 
@@ -227,6 +236,7 @@ function updateVoteTotals() {
          instructionsOverlay.classList.add('open');
          // Only show winner pop-up once
          winnerAnnounced = true;
+         localStorage.setItem('winnerAnnounced', winnerAnnounced);
       }
    }
 }
@@ -331,10 +341,7 @@ winnerCloseBtn.addEventListener('click', handleClosebutton);
 
 /* TODO: Local storage 
 
-- Create save/clear buttons
-- Upon save, delete existing local storage and replace with new
-   - Show last save time
-- Store gopVotes and demVotes arrays
+- Create modal for clear for user to confirm
 - On page load, loop through each array
    - If the state exists, then add the respective value to the data-attribute in the map
    - Also need to loop through the exception states of Maine and Nebraska
@@ -353,6 +360,10 @@ function handleSaveStorage() {
    if (demVotes.length > 0) {
       localStorage.setItem("demVotes", JSON.stringify(demVotes));
    }
+
+   console.log(new Date().toLocaleString());
+   localStorage.setItem('saveTime', new Date().toLocaleString());
+   savedTime.innerHTML = `Last saved: ${new Date().toLocaleString()}`;
 }
 
 function handleClearStorage() {
