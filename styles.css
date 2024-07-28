@@ -219,6 +219,14 @@ h3 {
    grid-template-columns: 1fr 1fr;
 }
 
+.hurdle-names {
+   display: flex;
+   justify-content: space-between;
+   text-transform: uppercase;
+   font-size: 0.75rem;
+   font-weight: 700;
+}
+
 .hurdle-dem {
    position: relative;
    border: 2px solid var(--blue);
