@@ -16,12 +16,13 @@
 </head>
 
 <body class="theme-bright">
-   <div class="instructions-overlay open"></div>
+   <!-- <div class="instructions-overlay open"></div> -->
    <h1>🇺🇸 USA Presidential Election 2024<span></span></h1>
+   <button class="open-instructions-btn" aria-label="Open Instructions" title="Instructions"><span>i</span></button>
    <div class="hurdle-wrapper">
       <div class="hurdle-names">
-         <span>Biden</span>
-         <span>Trump</span>
+         <span class="hurdle-dem-name">Biden</span>
+         <span class="hurdle-gop-name">Trump</span>
       </div>
       <div class="hurdle">
          <div class="hurdle-dem">
@@ -33,25 +34,38 @@
       </div>
       <div class="flag">🏆<br />270 to Win</div>
    </div> <!-- end hurdle wrapper -->
-   <div class="instructions open">
-      <button class="open-instructions-btn" aria-label="Open Instructions" title="Instructions"><span>i</span></button>
-      <button class="close-instructions-btn" aria-label="Close Instructions"><span>x</span></button>
+   <dialog class="instructions-dialog">
+      <!-- <button class="close-instructions-btn" aria-label="Close Instructions"><span>x</span></button> -->
       <div class="instructions-text">
          <h2>Instructions</h2>
-         <p>1) <strong>Hover</strong> over each state to view name and electoral information.</p>
-         <p>2) <strong>Click</strong> each state to cycle through assignments for Trump, Biden and unassigned.</p>
-         <p>3) <strong>Save/Clear</strong> your data by clicking on the buttons</p>
+         <ol>
+            <li><strong>Hover</strong> over each state to view name and electoral information.</li>
+            <li><strong>Click</strong> each state to cycle through assignments for Trump, Biden and unassigned.</li>
+            <li><strong>Save/Clear</strong> your data by clicking on the buttons</li>
+         </ol>
          <p><em>Maine and Nebraska do not assign all their delegates to one candidate. You will need to assign
                individual districts.</em></p>
-         <h3>LET'S DO THIS</h3>
+         <form method="dialog">
+            <button class="btn-dialog" autofocus>LET'S DO THIS</button>
+         </form>
       </div>
-   </div>
+   </dialog>
    <!-- end instructions -->
-   <div class="winner">
-      <button class="close-winner-btn" aria-label="Close Winner"><span>x</span></button>
+   <dialog class="winner-dialog">
+      <!-- <button class="close-winner-btn" aria-label="Close Winner"><span>x</span></button> -->
       <h2>President-Elect</h2>
       <h3 class="winner-president"></h3>
-   </div>
+      <form method="dialog">
+         <button autofocus>OK</button>
+      </form>
+   </dialog>
+   <dialog class="clear-dialog">
+      <h2>Are you sure you want to reset the map?</h2>
+      <form method="dialog">
+         <button class="btn-dialog" value="cancel" autofocus>Cancel</button>
+         <button id="clear-confirm-btn" class="btn-dialog" value="default">Confirm</button>
+      </form>
+   </dialog>
    <div class="map-totals">
       <div class="map">
          <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -500,8 +514,8 @@
             </div> <!-- end table wrapper GOP -->
          </div> <!-- end tables -->
          <div class="btn-local-wrapper">
-            <button class="save-btn">Save</button>
-            <button class="clear-btn">Clear</button>
+            <button id="save-btn" class="btn-dialog">Save</button>
+            <button id="clear-btn" class="btn-dialog">Reset</button>
          </div>
          <p class="save-time"></p>
       </div> <!-- end candidates -->

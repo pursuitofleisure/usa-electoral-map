@@ -70,10 +70,10 @@ const closeExceptions = document.querySelectorAll('.close-state-btn');
 const h1 = document.querySelector('h1 span');
 
 /* Instructions */
-const closeButton = document.querySelector('.close-instructions-btn');
-const openButton = document.querySelector('.open-instructions-btn');
-const instructions = document.querySelector('.instructions');
-const instructionsOverlay = document.querySelector('.instructions-overlay');
+// const closeButton = document.querySelector('.close-instructions-btn');
+const openBtn = document.querySelector('.open-instructions-btn');
+const instructionsDialog = document.querySelector('.instructions-dialog');
+// const instructionsOverlay = document.querySelector('.instructions-overlay');
 
 /* Candidate votes and progress */
 const gop = document.querySelector('.gop-votes');
@@ -91,7 +91,7 @@ const electDem = document.querySelector('.elect-dem');
 const winner = document.querySelector('.winner');
 const presidentElect = document.querySelector('.winner-president');
 const winnerCloseBtn = document.querySelector('.close-winner-btn');
-let winnerAnnounced;
+let winnerAnnounced = false;
 if (localStorage.getItem('winnerAnnounced')) {
    winnerAnnounced = localStorage.getItem('winnerAnnounced');
 }
@@ -112,14 +112,17 @@ electDem.innerText = demTableHeading;
 
 /* Local storage variables */
 const savedTime = document.querySelector('.save-time');
-const saveBtn = document.querySelector('.save-btn');
-const clearBtn = document.querySelector('.clear-btn');
+const saveBtn = document.querySelector('#save-btn');
+const clearBtn = document.querySelector('#clear-btn');
+const clearDialog = document.querySelector('.clear-dialog');
+const clearConfirmBtn = document.querySelector('#clear-confirm-btn');
 if (localStorage.getItem('saveTime')) {
    const saveTime = localStorage.getItem('saveTime');
    savedTime.innerHTML = `Last saved:  ${saveTime}`;
 }
 
-
+/* Events on page load */
+instructionsDialog.showModal();
 loadLocalStorage();
 
 /* 
@@ -232,8 +235,9 @@ function updateVoteTotals() {
          h1.textContent = ` - President-Elect ${demCandidate}`;
       }
       if (winnerAnnounced === false ) {
-         winner.classList.add('open');
-         instructionsOverlay.classList.add('open');
+         // winner.classList.add('open');
+         winner.showModal();
+         //instructionsOverlay.classList.add('open');
          // Only show winner pop-up once
          winnerAnnounced = true;
          localStorage.setItem('winnerAnnounced', winnerAnnounced);
@@ -264,15 +268,16 @@ function handleStateInfo(e) {
 function handleClosebutton() {
    instructions.classList.remove('open');
    instructions.classList.add('closed');
-   instructionsOverlay.classList.remove('open');
+   // instructionsOverlay.classList.remove('open');
    winner.classList.remove('open');
 }
 
 /* Open Instructions */
 function handleOpenbutton() {
-   instructions.classList.add('open');
-   instructions.classList.remove('closed');
-   instructionsOverlay.classList.add('open');
+   // instructions.classList.add('open');
+   // instructions.classList.remove('closed');
+   // instructionsOverlay.classList.add('open');
+   instructionsDialog.showModal();
 }
 
 /* Collapse tables showing states for GOP Candidate */
@@ -332,12 +337,12 @@ squareStates.forEach(state => {
 });
 
 /* Buttons for instructions */
-closeButton.addEventListener('click', handleClosebutton);
-openButton.addEventListener('click', handleOpenbutton);
-instructionsOverlay.addEventListener('click', handleClosebutton);
+// closeButton.addEventListener('click', handleClosebutton);
+openBtn.addEventListener('click', handleOpenbutton);
+// instructionsOverlay.addEventListener('click', handleClosebutton);
 
 /* Button for winner dialog */
-winnerCloseBtn.addEventListener('click', handleClosebutton);
+// winnerCloseBtn.addEventListener('click', handleClosebutton);
 
 /* TODO: Local storage 
 
@@ -351,8 +356,12 @@ winnerCloseBtn.addEventListener('click', handleClosebutton);
 */
 
 saveBtn.addEventListener('click', handleSaveStorage);
-clearBtn.addEventListener('click', handleClearStorage);
+//clearBtn.addEventListener('click', handleClearStorage);
+clearBtn.addEventListener("click", () => {
+   clearDialog.showModal();
+ });
 
+ /* Add GOP and DEM arrays (if they exist) to local storage and store save time */
 function handleSaveStorage() {
    if (gopVotes.length > 0) {
       localStorage.setItem("gopVotes", JSON.stringify(gopVotes));
@@ -366,6 +375,12 @@ function handleSaveStorage() {
    savedTime.innerHTML = `Last saved: ${new Date().toLocaleString()}`;
 }
 
+clearConfirmBtn.addEventListener('click', ()=> {
+   clearDialog.close();
+   handleClearStorage();
+});
+
+/* Clear local storage and refresh page */
 function handleClearStorage() {
    localStorage.clear();
    location.reload();
