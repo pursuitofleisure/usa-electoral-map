@@ -86,9 +86,11 @@ const gopTableButton = document.querySelector('.gop .show-table-btn');
 const demTableButton = document.querySelector('.dem .show-table-btn');
 const electGop = document.querySelector('.elect-gop');
 const electDem = document.querySelector('.elect-dem');
+const hurdleDemName = document.querySelector('.hurdle-dem-name');
+const hurdleGopName = document.querySelector('.hurdle-gop-name');
 
 /* Winner */
-const winner = document.querySelector('.winner');
+const winner = document.querySelector('.winner-dialog');
 const presidentElect = document.querySelector('.winner-president');
 const winnerCloseBtn = document.querySelector('.close-winner-btn');
 let winnerAnnounced = false;
@@ -101,14 +103,14 @@ let gopVotes = [];
 let demVotes = [];
 
 /* Input candidate names */
-const gopCandidate = 'Donald Trump';
-const demCandidate = 'Joe Biden';
-const gopTableHeading = 'Trump';
-const demTableHeading = 'Biden';
+const gopCandidate = 'Trump';
+const demCandidate = 'Harris';
 
-/* Change Table Headings */
-electGop.innerText = gopTableHeading;
-electDem.innerText = demTableHeading;
+/* Change Table Headings and Progress Bar Hurdle */
+electGop.innerText = gopCandidate;
+electDem.innerText = demCandidate;
+hurdleDemName.innerText = demCandidate;
+hurdleGopName.innerText = gopCandidate;
 
 /* Local storage variables */
 const savedTime = document.querySelector('.save-time');
