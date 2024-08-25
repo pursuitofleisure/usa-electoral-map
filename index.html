@@ -9,7 +9,7 @@
       content="Interactive US Presidential Electoral Map 2024 by Diana Le. Click each state to assign totals to candidates and watch their progress">
    <meta name="author" content="Diana Le">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet" href="normalize.css">
+   <!-- <link rel="stylesheet" href="normalize.css"> -->
    <link rel="stylesheet" href="styles.css">
    <link rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦅</text></svg>">
@@ -56,13 +56,13 @@
       <h2>President-Elect</h2>
       <h3 class="winner-president"></h3>
       <form method="dialog">
-         <button autofocus>OK</button>
+         <button class="btn-dialog" autofocus>OK</button>
       </form>
    </dialog>
    <dialog class="clear-dialog">
       <h2>Are you sure you want to reset the map?</h2>
       <form method="dialog">
-         <button class="btn-dialog" value="cancel" autofocus>Cancel</button>
+         <button class="btn-dialog btn-secondary" value="cancel" autofocus>Cancel</button>
          <button id="clear-confirm-btn" class="btn-dialog" value="default">Confirm</button>
       </form>
    </dialog>
@@ -515,7 +515,7 @@
          </div> <!-- end tables -->
          <div class="btn-local-wrapper">
             <button id="save-btn" class="btn-dialog">Save</button>
-            <button id="clear-btn" class="btn-dialog">Reset</button>
+            <button id="clear-btn" class="btn-dialog btn-secondary">Reset</button>
          </div>
          <p class="save-time"></p>
       </div> <!-- end candidates -->

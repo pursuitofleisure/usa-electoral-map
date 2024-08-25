@@ -20,7 +20,9 @@
    --error: #efbdeb;
    --text: #230c0f;
    --btn: #1b3022;
-   --focus: #028090;
+   --btn-secondary: #f1faee;
+   --btn-secondary-hover: #437C90;
+   --focus: #92bcea;
 }
 
 body {
@@ -53,6 +55,18 @@ h1 {
 
 button {
    cursor: pointer;
+}
+
+*:focus-visible {
+  outline: 4px solid var(--focus);
+}
+
+dialog form {
+   margin-top: 16px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 8px;
 }
 
 @media only screen and (min-width: 600px) {
@@ -569,16 +583,30 @@ footer {
 .btn-local-wrapper button,
 .btn-dialog {
    padding: 0.375rem;
+   text-transform: uppercase;
+   font-size: 0.875rem;
+   font-weight: 600;
+   letter-spacing: 0.4px;
    background-color: var(--btn);
    color: white;
    border: 2px solid var(--btn);
    border-radius: 0.5rem;
 }
 
+.btn-dialog.btn-secondary {
+   background-color: var(--btn-secondary);
+   color: var(--btn);
+}
+
 .btn-local-wrapper button:hover,
 .btn-dialog:hover {
    background-color: var(--white);
    color: var(--btn);
+}
+
+.btn-dialog.btn-secondary:hover {
+   background-color: var(--btn-secondary-hover);
+   color: white;
 }
 
 .save-time {
