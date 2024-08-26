@@ -246,6 +246,7 @@ h3 {
    top: 0;
    left: 0;
    height: 100%;
+   width: 4px;
    background-color: var(--blue);
 }
 
@@ -260,6 +261,7 @@ h3 {
    top: 0;
    right: 0;
    height: 100%;
+   width: 4px;
    background-color: var(--red);
 }
 
@@ -389,7 +391,7 @@ h3 {
 .show-table-btn::after {
    content: "\002B";
    position: absolute;
-   top: 3px;
+   top: 1px;
    font-size: 1.2rem;
    left: 50%;
    margin-left: -5.5px;

@@ -210,8 +210,13 @@ function updateVoteTotals() {
    }
 
    // Update the HTML with the states and percentage to 270
+   // The percentage bar needs to take into account the border and the percentage change once they pass 270
    gop.textContent = `${gopTotal} Votes`;
-   gopPercentage.style.width = `${gopTotal / 270 * 100}%`;
+   if (gopTotal <= 270) {
+      gopPercentage.style.width = `calc(${gopTotal / 270 * 100}% + 4px)`;
+   } else {
+      gopPercentage.style.width = `calc(${gopTotal / 269 * 100}% + 4px)`;
+   }
    gopTable.innerHTML = gopAllStates;
  
    let demTotal = 0;
@@ -223,8 +228,13 @@ function updateVoteTotals() {
    }
 
    // Update the HTML with the states and percentage to 270
+   // The percentage bar needs to take into account the border and the percentage change once they pass 270
    dem.textContent = `${demTotal} Votes`;
-   demPercentage.style.width = `${demTotal / 270 * 100}%`;
+   if (demTotal <= 270) {
+      demPercentage.style.width = `calc(${demTotal / 270 * 100}% + 4px)`;
+   } else {
+      demPercentage.style.width = `calc(${demTotal / 269 * 100}% + 4px)`;
+   }
    demTable.innerHTML = demAllStates;
 
    // display winner dialog once either candidate reaches 270
