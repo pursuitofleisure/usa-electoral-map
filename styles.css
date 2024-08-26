@@ -94,21 +94,6 @@ dialog form {
    background-color: rgba(0,0,0);
    opacity: 0.8;
  }
- 
-/* .instructions-overlay {
-   display: none;
-   position: fixed;
-   background-color: rgba(0,0,0,0.8);
-   top: 0;
-   left: 0;
-   height: 100%;
-   width: 100%;
-   z-index: 1;
-}
-
-.instructions-overlay.open {
-   display: block;
-} */
 
 .instructions-dialog,
 .winner-dialog {
@@ -129,35 +114,6 @@ dialog form {
 .instructions h3 {
    text-align: center;
 }
-
-/* .instructions button,
-.winner button {
-   position: absolute;
-   top: 16px;
-   right: 16px;
-}
-
-.instructions.closed {
-   padding: 0;
-   border: 0;
-   position: absolute;
-   top: 0;
-   right: 0;
-   -webkit-transform: translate(0);
-       -ms-transform: translate(0);
-           transform: translate(0);
-}
-
-.instructions.closed p,
-.instructions.closed button,
-.instructions.closed h2,
-.instructions.closed h3 {
-   display: none;
-}
-
-.instructions.closed .open-instructions-btn {
-   display: block;
-} */
 
 /* Winner */
 
@@ -615,8 +571,4 @@ footer {
    font-size: 0.875rem;
    font-style: italic;
    font-weight: 500;
-}
-
-@media only screen and (min-width: 600px) {
-
 }
