@@ -346,6 +346,7 @@ states.forEach(state => {
 /* Listen for square states */
 squareStates.forEach(state => {
    state.addEventListener('click', claimState);
+   state.addEventListener('mouseenter', handleStateInfo);
 });
 
 /* Buttons for instructions */
