@@ -15,7 +15,7 @@
    --red: #ff0054;
    --purple: #71677c;
    --exception: #c04cfd;
-   --pink: #ffbd00;
+   --pink: #ADA6B5;
    --white: #fffffc;
    --error: #efbdeb;
    --text: #230c0f;
@@ -426,8 +426,8 @@ h3 {
    width: 100%;
 }
 
-.map svg a:hover path,
-.map svg a:focus path {
+.map .state:hover path,
+.map .state:focus path {
    fill: var(--pink);
 }
 
