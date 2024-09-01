@@ -70,10 +70,8 @@ const closeExceptions = document.querySelectorAll('.close-state-btn');
 const h1 = document.querySelector('h1 span');
 
 /* Instructions */
-const closeButton = document.querySelector('.close-instructions-btn');
-const openButton = document.querySelector('.open-instructions-btn');
-const instructions = document.querySelector('.instructions');
-const instructionsOverlay = document.querySelector('.instructions-overlay');
+const openBtn = document.querySelector('.open-instructions-btn');
+const instructionsDialog = document.querySelector('.instructions-dialog');
 
 /* Candidate votes and progress */
 const gop = document.querySelector('.gop-votes');
@@ -86,25 +84,53 @@ const gopTableButton = document.querySelector('.gop .show-table-btn');
 const demTableButton = document.querySelector('.dem .show-table-btn');
 const electGop = document.querySelector('.elect-gop');
 const electDem = document.querySelector('.elect-dem');
+const hurdleDemName = document.querySelector('.hurdle-dem-name');
+const hurdleGopName = document.querySelector('.hurdle-gop-name');
 
 /* Winner */
-const winner = document.querySelector('.winner');
+const winner = document.querySelector('.winner-dialog');
 const presidentElect = document.querySelector('.winner-president');
 const winnerCloseBtn = document.querySelector('.close-winner-btn');
 let winnerAnnounced = false;
+if (localStorage.getItem('winnerAnnounced')) {
+   winnerAnnounced = localStorage.getItem('winnerAnnounced');
+}
 
+/* Create arrays to store objects of states and votes */
 let gopVotes = [];
 let demVotes = [];
 
 /* Input candidate names */
-const gopCandidate = 'Donald Trump';
-const demCandidate = 'Joe Biden';
-const gopTableHeading = 'Trump';
-const demTableHeading = 'Biden';
+const gopCandidate = 'Trump';
+const demCandidate = 'Harris';
 
-/* Change Table Headings */
-electGop.innerText = gopTableHeading;
-electDem.innerText = demTableHeading;
+/* Change Table Headings and Progress Bar Hurdle */
+electGop.innerText = gopCandidate;
+electDem.innerText = demCandidate;
+hurdleDemName.innerText = demCandidate;
+hurdleGopName.innerText = gopCandidate;
+
+/* Local storage variables */
+const savedTime = document.querySelector('.save-time');
+const saveBtn = document.querySelector('#save-btn');
+const clearBtn = document.querySelector('#clear-btn');
+const clearDialog = document.querySelector('.clear-dialog');
+const clearConfirmBtn = document.querySelector('#clear-confirm-btn');
+if (localStorage.getItem('saveTime')) {
+   const saveTime = localStorage.getItem('saveTime');
+   savedTime.innerHTML = `Last saved:  ${saveTime}`;
+}
+
+/* Events on page load */
+instructionsDialog.showModal();
+
+/*
+- On page load, loop through each array
+   - If the state exists, then add the respective value to the data-attribute in the map
+   - Also need to loop through the exception states of Maine and Nebraska
+   - If candidate has 270+ votes, update the title
+*/
+loadLocalStorage();
 
 /* 
 Change votes to GOP or to Democrat. 
@@ -189,8 +215,13 @@ function updateVoteTotals() {
    }
 
    // Update the HTML with the states and percentage to 270
+   // The percentage bar needs to take into account the border and the percentage change once they pass 270
    gop.textContent = `${gopTotal} Votes`;
-   gopPercentage.style.width = `${gopTotal / 270 * 100}%`;
+   if (gopTotal <= 270) {
+      gopPercentage.style.width = `calc(${gopTotal / 270 * 100}% + 4px)`;
+   } else {
+      gopPercentage.style.width = `calc(${gopTotal / 269 * 100}% + 4px)`;
+   }
    gopTable.innerHTML = gopAllStates;
  
    let demTotal = 0;
@@ -202,8 +233,13 @@ function updateVoteTotals() {
    }
 
    // Update the HTML with the states and percentage to 270
+   // The percentage bar needs to take into account the border and the percentage change once they pass 270
    dem.textContent = `${demTotal} Votes`;
-   demPercentage.style.width = `${demTotal / 270 * 100}%`;
+   if (demTotal <= 270) {
+      demPercentage.style.width = `calc(${demTotal / 270 * 100}% + 4px)`;
+   } else {
+      demPercentage.style.width = `calc(${demTotal / 269 * 100}% + 4px)`;
+   }
    demTable.innerHTML = demAllStates;
 
    // display winner dialog once either candidate reaches 270
@@ -216,10 +252,10 @@ function updateVoteTotals() {
          h1.textContent = ` - President-Elect ${demCandidate}`;
       }
       if (winnerAnnounced === false ) {
-         winner.classList.add('open');
-         instructionsOverlay.classList.add('open');
+         winner.showModal();
          // Only show winner pop-up once
          winnerAnnounced = true;
+         localStorage.setItem('winnerAnnounced', winnerAnnounced);
       }
    }
 }
@@ -243,19 +279,9 @@ function handleStateInfo(e) {
    current.textContent = `${stateName}: ${stateElectorates} votes`;
 }
 
-/* Close Instructions and Close Winner */
-function handleClosebutton() {
-   instructions.classList.remove('open');
-   instructions.classList.add('closed');
-   instructionsOverlay.classList.remove('open');
-   winner.classList.remove('open');
-}
-
 /* Open Instructions */
 function handleOpenbutton() {
-   instructions.classList.add('open');
-   instructions.classList.remove('closed');
-   instructionsOverlay.classList.add('open');
+   instructionsDialog.showModal();
 }
 
 /* Collapse tables showing states for GOP Candidate */
@@ -312,12 +338,83 @@ states.forEach(state => {
 /* Listen for square states */
 squareStates.forEach(state => {
    state.addEventListener('click', claimState);
+   state.addEventListener('mouseenter', handleStateInfo);
 });
 
 /* Buttons for instructions */
-closeButton.addEventListener('click', handleClosebutton);
-openButton.addEventListener('click', handleOpenbutton);
-instructionsOverlay.addEventListener('click', handleClosebutton);
+openBtn.addEventListener('click', handleOpenbutton);
 
-/* Button for winner dialog */
-winnerCloseBtn.addEventListener('click', handleClosebutton);
+saveBtn.addEventListener('click', handleSaveStorage);
+clearBtn.addEventListener('click', () => {
+   clearDialog.showModal();
+});
+
+ /* Add GOP and DEM arrays (if they exist) to local storage and store save time */
+function handleSaveStorage() {
+   if (gopVotes.length > 0) {
+      localStorage.setItem('gopVotes', JSON.stringify(gopVotes));
+   }
+   if (demVotes.length > 0) {
+      localStorage.setItem('demVotes', JSON.stringify(demVotes));
+   }
+
+   localStorage.setItem('saveTime', new Date().toLocaleString());
+   savedTime.innerHTML = `Last saved: ${new Date().toLocaleString()}`;
+}
+
+clearConfirmBtn.addEventListener('click', ()=> {
+   clearDialog.close();
+   handleClearStorage();
+});
+
+/* Clear local storage and refresh page */
+function handleClearStorage() {
+   localStorage.clear();
+   location.reload();
+}
+
+function loadLocalStorage() {
+   /* Pull values from local storage only if they exist */
+   /* Loop through states and exceptions and set the data-candidate attribute from local storage */
+
+   const gopStates = [];
+   const demStates = [];
+
+   if (localStorage.getItem('gopVotes') !== null || localStorage.getItem('demVotes') !== null) {
+      if (localStorage.getItem('gopVotes') !== null) {
+         gopVotes = JSON.parse(localStorage.getItem('gopVotes'));
+         // create array of GOP state names
+         for(let t = 0; t < gopVotes.length; t++) {
+            gopStates.push(gopVotes[t].state);
+         }
+      }
+      if (localStorage.getItem('demVotes') !== null) {
+         demVotes = JSON.parse(localStorage.getItem('demVotes'));
+         // create array of Dem state names
+         for(let t = 0; t < demVotes.length; t++) {
+            demStates.push(demVotes[t].state);
+         }
+      }
+      updateVoteTotals();
+
+      // update state attributes for color
+      states.forEach(state => {
+         if (gopStates.includes(state.dataset.state)) {
+            state.dataset.candidate = 'gop';
+         }
+         if (demStates.includes(state.dataset.state)) {
+            state.dataset.candidate = 'dem';
+         }
+      });
+
+      // update Maine/Nebrask colors
+      squareStates.forEach(state => {
+         if (gopStates.includes(state.dataset.state)) {
+            state.dataset.candidate = 'gop';
+         }
+         if (demStates.includes(state.dataset.state)) {
+            state.dataset.candidate = 'dem';
+         }
+      });
+   }
+}
