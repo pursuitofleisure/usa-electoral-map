@@ -4,7 +4,7 @@ This is an interactive (SVG) map of USA states with the ability to click on each
 
 **Best viewed on larger screens**
 
-[View Map Online](https://pursuitofleisure.github.io/usa-electoral-map-2020/)
+[View Map Online](https://pursuitofleisure.github.io/usa-electoral-map/)
 
 ## Built With
 
@@ -20,6 +20,8 @@ This is an interactive (SVG) map of USA states with the ability to click on each
 - Objects
 - Adding / removing items to / from array
 - Sorting
+- Local storage
+- `<dialog>`
 
 ## CSS Layouts used:
 
