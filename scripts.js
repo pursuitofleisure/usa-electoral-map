@@ -70,10 +70,8 @@ const closeExceptions = document.querySelectorAll('.close-state-btn');
 const h1 = document.querySelector('h1 span');
 
 /* Instructions */
-// const closeButton = document.querySelector('.close-instructions-btn');
 const openBtn = document.querySelector('.open-instructions-btn');
 const instructionsDialog = document.querySelector('.instructions-dialog');
-// const instructionsOverlay = document.querySelector('.instructions-overlay');
 
 /* Candidate votes and progress */
 const gop = document.querySelector('.gop-votes');
@@ -125,6 +123,13 @@ if (localStorage.getItem('saveTime')) {
 
 /* Events on page load */
 instructionsDialog.showModal();
+
+/*
+- On page load, loop through each array
+   - If the state exists, then add the respective value to the data-attribute in the map
+   - Also need to loop through the exception states of Maine and Nebraska
+   - If candidate has 270+ votes, update the title
+*/
 loadLocalStorage();
 
 /* 
@@ -247,9 +252,7 @@ function updateVoteTotals() {
          h1.textContent = ` - President-Elect ${demCandidate}`;
       }
       if (winnerAnnounced === false ) {
-         // winner.classList.add('open');
          winner.showModal();
-         //instructionsOverlay.classList.add('open');
          // Only show winner pop-up once
          winnerAnnounced = true;
          localStorage.setItem('winnerAnnounced', winnerAnnounced);
@@ -276,19 +279,8 @@ function handleStateInfo(e) {
    current.textContent = `${stateName}: ${stateElectorates} votes`;
 }
 
-/* Close Instructions and Close Winner */
-function handleClosebutton() {
-   instructions.classList.remove('open');
-   instructions.classList.add('closed');
-   // instructionsOverlay.classList.remove('open');
-   winner.classList.remove('open');
-}
-
 /* Open Instructions */
 function handleOpenbutton() {
-   // instructions.classList.add('open');
-   // instructions.classList.remove('closed');
-   // instructionsOverlay.classList.add('open');
    instructionsDialog.showModal();
 }
 
@@ -350,40 +342,22 @@ squareStates.forEach(state => {
 });
 
 /* Buttons for instructions */
-// closeButton.addEventListener('click', handleClosebutton);
 openBtn.addEventListener('click', handleOpenbutton);
-// instructionsOverlay.addEventListener('click', handleClosebutton);
-
-/* Button for winner dialog */
-// winnerCloseBtn.addEventListener('click', handleClosebutton);
-
-/* TODO: Local storage 
-
-- Create modal for clear for user to confirm
-- On page load, loop through each array
-   - If the state exists, then add the respective value to the data-attribute in the map
-   - Also need to loop through the exception states of Maine and Nebraska
-   - If candidate has 270+ votes, update the title
-- Fix issue if winner is saved with two dialog boxes showing at once
-
-*/
 
 saveBtn.addEventListener('click', handleSaveStorage);
-//clearBtn.addEventListener('click', handleClearStorage);
-clearBtn.addEventListener("click", () => {
+clearBtn.addEventListener('click', () => {
    clearDialog.showModal();
- });
+});
 
  /* Add GOP and DEM arrays (if they exist) to local storage and store save time */
 function handleSaveStorage() {
    if (gopVotes.length > 0) {
-      localStorage.setItem("gopVotes", JSON.stringify(gopVotes));
+      localStorage.setItem('gopVotes', JSON.stringify(gopVotes));
    }
    if (demVotes.length > 0) {
-      localStorage.setItem("demVotes", JSON.stringify(demVotes));
+      localStorage.setItem('demVotes', JSON.stringify(demVotes));
    }
 
-   console.log(new Date().toLocaleString());
    localStorage.setItem('saveTime', new Date().toLocaleString());
    savedTime.innerHTML = `Last saved: ${new Date().toLocaleString()}`;
 }
@@ -406,16 +380,16 @@ function loadLocalStorage() {
    const gopStates = [];
    const demStates = [];
 
-   if (localStorage.getItem("gopVotes") !== null || localStorage.getItem("demVotes") !== null) {
-      if (localStorage.getItem("gopVotes") !== null) {
-         gopVotes = JSON.parse(localStorage.getItem("gopVotes"));
+   if (localStorage.getItem('gopVotes') !== null || localStorage.getItem('demVotes') !== null) {
+      if (localStorage.getItem('gopVotes') !== null) {
+         gopVotes = JSON.parse(localStorage.getItem('gopVotes'));
          // create array of GOP state names
          for(let t = 0; t < gopVotes.length; t++) {
             gopStates.push(gopVotes[t].state);
          }
       }
-      if (localStorage.getItem("demVotes") !== null) {
-         demVotes = JSON.parse(localStorage.getItem("demVotes"));
+      if (localStorage.getItem('demVotes') !== null) {
+         demVotes = JSON.parse(localStorage.getItem('demVotes'));
          // create array of Dem state names
          for(let t = 0; t < demVotes.length; t++) {
             demStates.push(demVotes[t].state);
@@ -426,20 +400,20 @@ function loadLocalStorage() {
       // update state attributes for color
       states.forEach(state => {
          if (gopStates.includes(state.dataset.state)) {
-            state.dataset.candidate = "gop";
+            state.dataset.candidate = 'gop';
          }
          if (demStates.includes(state.dataset.state)) {
-            state.dataset.candidate = "dem";
+            state.dataset.candidate = 'dem';
          }
       });
 
       // update Maine/Nebrask colors
       squareStates.forEach(state => {
          if (gopStates.includes(state.dataset.state)) {
-            state.dataset.candidate = "gop";
+            state.dataset.candidate = 'gop';
          }
          if (demStates.includes(state.dataset.state)) {
-            state.dataset.candidate = "dem";
+            state.dataset.candidate = 'dem';
          }
       });
    }
