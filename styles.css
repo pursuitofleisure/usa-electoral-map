@@ -393,6 +393,10 @@ h3 {
    position: relative;
 }
 
+.candidates {
+   margin-top: 8px;
+}
+
 @media screen and (min-width: 1200px) {
    .map-totals {
       display: -webkit-box;
@@ -407,6 +411,7 @@ h3 {
    }
    .candidates {
       width: 25%;
+      margin-top: 0;
    }
 }
 
